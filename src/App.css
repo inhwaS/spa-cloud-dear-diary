@@ -112,3 +112,57 @@
   gap: 10px;
   margin-top: 20px;
 }
+
+/* Form styling using CSS Grid */
+.form-container {
+  display: grid;
+  gap: 15px;  /* Space between rows */
+  grid-template-columns: 1fr 2fr;  /* Two columns, labels in first column, inputs in second */
+  margin-bottom: 10px;
+}
+
+/* Styling for each form group (label + input pair) */
+.form-group {
+  display: contents;  /* Keeps the grid columns unaffected */
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* Styling for the label */
+.form-group label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  padding-right: 15px; /* Adds space between label and input */
+  text-align: right; /* Aligns labels to the right */
+  line-height: 40px; /* Vertically aligns the label with input */
+}
+
+/* Styling for the input fields */
+.form-group input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+
+/* Styling for the input fields */
+.form-group input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Styling for focus on input fields */
+.form-group input:focus {
+  border-color: #4b0082;
+  box-shadow: 0 0 5px #b19cd9;
+}
+
+.DivForClick{
+  margin-top: 20px;
+}

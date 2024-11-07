@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { fetchDiaryInfo } from './api/diaryService';
-import SignUp from './components/SignUp';
 import CreateDiary from './components/CreateDiary';
 import WaitingForConnection from './components/WaitingForConnection';
 import ReadDiary from './components/ReadDiary';
 import DiaryMain from './components/DiaryMain';
 import './App.css';
+import Auth from './components/auth/Auth';
 
 function App() {
   const [isRegistered, setIsRegistered] = useState(false);
@@ -48,7 +48,7 @@ function App() {
       <div className="App">
         <main className="Wrapper">
           {!isRegistered ? (
-              <SignUp onRegister={handleLogin} />
+              <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered}/>
             ) : !diaryCreated ? (
               <CreateDiary onCreateDiary={handleDiaryCreation} />
             ) : !diaryConnected ? (
