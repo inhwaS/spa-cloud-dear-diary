@@ -1,5 +1,4 @@
 import React from 'react';
-import DiaryMain from './DiaryMain';
 
 function ReadDiary({ diaryInfo, setShowReadDiary }) {
   const handleOnClick = () => {

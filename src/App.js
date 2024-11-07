@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { fetchDiaryInfo } from './api/diaryService';
 import CreateDiary from './components/CreateDiary';
 import WaitingForConnection from './components/WaitingForConnection';
@@ -44,24 +43,22 @@ function App() {
   }, []);
 
   return (
-    <Router> {/* Wrap your app with BrowserRouter */}
-      <div className="App">
-        <main className="Wrapper">
-          {!isRegistered ? (
-              <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered}/>
-            ) : !diaryCreated ? (
-              <CreateDiary onCreateDiary={handleDiaryCreation} />
-            ) : !diaryConnected ? (
-              <WaitingForConnection onConnectDiary={handleDiaryConnection} />
-            ) : showReadDiary ? (
-              <ReadDiary diaryInfo={diaryInfo} setShowReadDiary={setShowReadDiary}/>
-            ) : (
-              <DiaryMain diaryInfo={diaryInfo} setShowReadDiary={setShowReadDiary} />
-            )
-          }
-        </main>
-      </div>
-    </Router> // Close Router here
+    <div className="App">
+      <main className="Wrapper">
+        {!isRegistered ? (
+            <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered}/>
+          ) : !diaryCreated ? (
+            <CreateDiary onCreateDiary={handleDiaryCreation} />
+          ) : !diaryConnected ? (
+            <WaitingForConnection onConnectDiary={handleDiaryConnection} />
+          ) : showReadDiary ? (
+            <ReadDiary diaryInfo={diaryInfo} setShowReadDiary={setShowReadDiary}/>
+          ) : (
+            <DiaryMain diaryInfo={diaryInfo} setShowReadDiary={setShowReadDiary} />
+          )
+        }
+      </main>
+    </div>
   );
 }
 

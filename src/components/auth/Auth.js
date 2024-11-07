@@ -5,11 +5,6 @@ import SignUp from './SignUp';
 function Auth({ setIsRegistered }) {
   const [isLoginPage, setIsLoginPage] = useState(true);
 
-  const handleRegister = () => {
-    // Logic for registration (e.g., create new account)
-    console.log("User registered!");
-  };
-
   const handleTogglePage = () => {
     setIsLoginPage(!isLoginPage);  // Toggle between Login and SignUp
   };
