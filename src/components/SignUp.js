@@ -2,9 +2,10 @@ import React from 'react';
 
 function SignUp({ onRegister }) {
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <button onClick={onRegister}>Sign Up with Amazon Cognito</button>
+    <div className='DiaryMain'>
+      <h1>Welcome to Dear Diary</h1>
+      <button onClick={onRegister} className='BasicButton'>Log In</button>
+      <button onClick={onRegister} className='BasicButton'>Sign Up</button>
     </div>
   );
 }

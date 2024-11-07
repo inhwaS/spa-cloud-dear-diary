@@ -1,83 +1,114 @@
+/* Import a cute, handwritten font */
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
 .App {
-  text-align: center;
-  font-family: Arial, sans-serif;
-  background-color: #f7f9fc;
-  color: #333;
-}
-
-.App-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.App-header h1 {
-  color: #007bff;
-  margin: 0;
-}
-
-.App-header nav span {
-  margin: 0 15px;
-  color: #555;
-  cursor: pointer;
+  flex-direction: column; /* Stacks header and main vertically */
+  justify-content: center; /* Centers content vertically */
+  align-items: center; /* Centers content horizontally */
+  text-align: center; /* Centers text inside the App */
+  width: 100%;
 }
 
 .DiaryMain {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dcd3ff;
+  box-shadow: 0px 4px 12px rgba(75, 0, 130, 0.1);
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  min-width: 400px;
 }
 
 .DiaryHeader {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 300px;
+  width: 100%;
   margin-bottom: 20px;
-  border: 1px solid #ddd;
   padding: 10px;
-  background-color: #fff;
+  background-color: #f3e8ff;
+  border-radius: 15px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .DiaryHeader img {
-  width: 50px;
+  width: 40px;
   height: auto;
 }
 
 .DiaryHeader span {
-  font-size: 18px;
-  color: #555;
+  font-size: 1.2em;
+  color: #4b0082;
 }
 
 .DiaryMain p {
-  color: #888;
-  font-size: 16px;
+  font-size: 1em;
   margin: 10px 0;
 }
 
 .DiaryIcon img {
-  width: 200px;
+  width: 150px;
   height: auto;
   margin: 20px 0;
 }
 
-.BasicButtonWrapper {
-  display: flex;
-  grid-template-columns: auto auto;
-  gap: 10px;
+.DiaryIcon:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s ease-in-out;
 
-  > .BasicButton {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+/* Define the keyframes for the shake animation */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
+.BasicButton {
+  padding: 12px 24px;
+  font-size: 1em;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  background-color: #b19cd9;
+  min-width: 200px;
+  margin-top: 10px;
+}
+
+.BasicButton:hover {
+  background-color: #f3e8ff;
+  color: #b19cd9;
+  transform: scale(1.05);
+}
+
+.BasicButtonWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  margin-top: 20px;
+}
