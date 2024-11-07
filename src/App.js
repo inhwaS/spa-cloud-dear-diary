@@ -5,8 +5,8 @@ import WaitingForConnection from './components/WaitingForConnection';
 import './App.css';
 
 function App() {
-  const [isRegistered, setIsRegistered] = useState(true);
-  const [diaryCreated, setDiaryCreated] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [diaryCreated, setDiaryCreated] = useState(false);
   const [diaryConnected, setDiaryConnected] = useState(true); // Assume connected for styling demo
   const [diaryInfo, setDiaryInfo] = useState({
     name1: '',
