@@ -1,7 +1,7 @@
 // src/components/DiaryMain.js
 import React from 'react';
 
-const DiaryMain = ({ diaryInfo, setShowReadDiary }) => {
+const DiaryMain = ({ diaryInfo, setShowReadDiary, setShowWriteDiary }) => {
   return (
     <div className="DiaryMain">
       <div className="DiaryHeader">
@@ -15,7 +15,12 @@ const DiaryMain = ({ diaryInfo, setShowReadDiary }) => {
       <div className="DiaryIcon" onClick={() => setShowReadDiary(true)}>
         <img src="./images/diary.png" alt="Diary" style={{ cursor: 'pointer' }} />
       </div>
-      <button className="BasicButton">New Entry</button>
+      <button 
+        className="BasicButton" 
+        onClick={() => setShowWriteDiary(true)}
+      >
+        New Entry
+      </button>
     </div>
   );
 };

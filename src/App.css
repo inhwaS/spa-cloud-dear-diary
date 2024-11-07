@@ -166,3 +166,20 @@
 .DivForClick{
   margin-top: 20px;
 }
+
+/* src/components/WriteDiary.css */
+.IconButtonWrapper {
+  display: flex;
+  justify-content: space-evenly; /* Distribute the icons evenly */
+  align-items: center; /* Vertically center the icons */
+  margin-top: 20px;
+}
+
+.IconButton {
+  text-align: center;
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+}

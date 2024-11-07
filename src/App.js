@@ -1,9 +1,12 @@
+// App.js
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { fetchDiaryInfo } from './api/diaryService';
 import CreateDiary from './components/CreateDiary';
 import WaitingForConnection from './components/WaitingForConnection';
 import ReadDiary from './components/ReadDiary';
 import DiaryMain from './components/DiaryMain';
+import WriteDiary from './components/WriteDiary';  // Assuming you have a WriteDiary component
 import './App.css';
 import Auth from './components/auth/Auth';
 
@@ -12,6 +15,7 @@ function App() {
   const [diaryCreated, setDiaryCreated] = useState(false);
   const [diaryConnected, setDiaryConnected] = useState(true);
   const [showReadDiary, setShowReadDiary] = useState(false);
+  const [showWriteDiary, setShowWriteDiary] = useState(false); // State for WriteDiary visibility
 
   const [diaryInfo, setDiaryInfo] = useState({
     name1: '',
@@ -43,22 +47,29 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <main className="Wrapper">
-        {!isRegistered ? (
-            <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered}/>
+    <Router>
+      <div className="App">
+        <main className="Wrapper">
+          {!isRegistered ? (
+            <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered} />
           ) : !diaryCreated ? (
             <CreateDiary onCreateDiary={handleDiaryCreation} />
           ) : !diaryConnected ? (
             <WaitingForConnection onConnectDiary={handleDiaryConnection} />
+          ) : showWriteDiary ? (  // Conditionally render WriteDiary
+            <WriteDiary setShowWriteDiary={setShowWriteDiary}/>
           ) : showReadDiary ? (
-            <ReadDiary diaryInfo={diaryInfo} setShowReadDiary={setShowReadDiary}/>
+            <ReadDiary  setShowReadDiary={setShowReadDiary} />
           ) : (
-            <DiaryMain diaryInfo={diaryInfo} setShowReadDiary={setShowReadDiary} />
-          )
-        }
-      </main>
-    </div>
+            <DiaryMain
+              diaryInfo={diaryInfo}
+              setShowReadDiary={setShowReadDiary}
+              setShowWriteDiary={setShowWriteDiary}  // Pass the function to DiaryMain
+            />
+          )}
+        </main>
+      </div>
+    </Router>
   );
 }
 

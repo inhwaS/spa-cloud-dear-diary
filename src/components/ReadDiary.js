@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ReadDiary({ diaryInfo, setShowReadDiary }) {
+function ReadDiary({ setShowReadDiary }) {
   const handleOnClick = () => {
     setShowReadDiary(false); // Update state to show the main diary view
   };
