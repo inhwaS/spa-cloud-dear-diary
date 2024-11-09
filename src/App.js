@@ -1,6 +1,5 @@
 // App.js
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { fetchDiaryInfo } from './api/diaryService';
 import CreateDiary from './components/CreateDiary';
 import WaitingForConnection from './components/WaitingForConnection';
@@ -47,29 +46,27 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <main className="Wrapper">
-          {!isRegistered ? (
-            <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered} />
-          ) : !diaryCreated ? (
-            <CreateDiary onCreateDiary={handleDiaryCreation} />
-          ) : !diaryConnected ? (
-            <WaitingForConnection onConnectDiary={handleDiaryConnection} />
-          ) : showWriteDiary ? (  // Conditionally render WriteDiary
-            <WriteDiary setShowWriteDiary={setShowWriteDiary}/>
-          ) : showReadDiary ? (
-            <ReadDiary  setShowReadDiary={setShowReadDiary} />
-          ) : (
-            <DiaryMain
-              diaryInfo={diaryInfo}
-              setShowReadDiary={setShowReadDiary}
-              setShowWriteDiary={setShowWriteDiary}  // Pass the function to DiaryMain
-            />
-          )}
-        </main>
-      </div>
-    </Router>
+    <div className="App">
+      <main className="Wrapper">
+        {!isRegistered ? (
+          <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered} />
+        ) : !diaryCreated ? (
+          <CreateDiary onCreateDiary={handleDiaryCreation} />
+        ) : !diaryConnected ? (
+          <WaitingForConnection onConnectDiary={handleDiaryConnection} />
+        ) : showWriteDiary ? (  // Conditionally render WriteDiary
+          <WriteDiary setShowWriteDiary={setShowWriteDiary}/>
+        ) : showReadDiary ? (
+          <ReadDiary  setShowReadDiary={setShowReadDiary} />
+        ) : (
+          <DiaryMain
+            diaryInfo={diaryInfo}
+            setShowReadDiary={setShowReadDiary}
+            setShowWriteDiary={setShowWriteDiary}  // Pass the function to DiaryMain
+          />
+        )}
+      </main>
+    </div>
   );
 }
 

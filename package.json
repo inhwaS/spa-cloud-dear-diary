@@ -39,6 +39,12 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-transform-class-properties": "^7.18.6",
+    "@babel/plugin-transform-optional-chaining": "^7.21.0",
+    "@babel/plugin-transform-private-methods": "^7.18.6",
+    "@jridgewell/sourcemap-codec": "^1.4.8",
+    "glob": "^9.0.0",
+    "lru-cache": "^7.14.0",
+    "rimraf": "^4.0.0"
   }
 }
