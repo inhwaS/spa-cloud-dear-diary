@@ -1,6 +1,5 @@
 // Verification.js
 import React, { useState } from 'react';
-import axios from 'axios';
 
 function Verification({ email, onVerifyCode, loading }) {
   const [validationCode, setValidationCode] = useState('');
@@ -15,6 +14,7 @@ function Verification({ email, onVerifyCode, loading }) {
     // } catch (error) {
     //   setErrorMessage("Invalid validation code. Please try again.");
     // }
+    setErrorMessage("Invalid validation code. Please try again.");
     onVerifyCode();
   };
 

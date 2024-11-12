@@ -9,6 +9,8 @@ function WriteDiary({ setShowWriteDiary }) {
   const handleRefineContent = () => {
     // Simulate LLM refinement process
     setRefinedContent(`Refined: ${content}`);
+    // TODO
+    setContent(false);
   };
 
   const handleOnClick = () => {
