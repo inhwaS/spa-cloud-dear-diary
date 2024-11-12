@@ -1,6 +1,5 @@
 // App.js
-import React, { useState, useEffect } from 'react';
-import { fetchDiaryInfo } from './api/diaryService';
+import React, { useState } from 'react';
 import CreateDiary from './components/CreateDiary';
 import WaitingForConnection from './components/WaitingForConnection';
 import ReadDiary from './components/ReadDiary';
@@ -27,24 +26,6 @@ function App() {
   const handleDiaryCreation = () => setDiaryCreated(true);
   const handleDiaryConnection = () => setDiaryConnected(true);
 
-  useEffect(() => {
-    const getDiaryInfo = async () => {
-      try {
-        const data = await fetchDiaryInfo();
-        setDiaryInfo({
-          name1: data.name1,
-          name2: data.name2,
-          date: data.date,
-          days: data.days,
-        });
-      } catch (error) {
-        console.error("Error fetching diary info:", error);
-      }
-    };
-
-    getDiaryInfo();
-  }, []);
-
   return (
     <div className="App">
       <main className="Wrapper">
@@ -61,8 +42,9 @@ function App() {
         ) : (
           <DiaryMain
             diaryInfo={diaryInfo}
+            setDiaryInfo={setDiaryInfo}
             setShowReadDiary={setShowReadDiary}
-            setShowWriteDiary={setShowWriteDiary}  // Pass the function to DiaryMain
+            setShowWriteDiary={setShowWriteDiary}
           />
         )}
       </main>
