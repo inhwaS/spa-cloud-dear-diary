@@ -1,66 +1,29 @@
-const AWS = require('aws-sdk');
-const cognito = new AWS.CognitoIdentityServiceProvider();
+import axios from 'axios';
 
-// The sign-up function (Stage 1)
-const signUp = async (email, password) => {
-  const params = {
-    ClientId: process.env.COGNITO_USER_POOL_CLIENT_ID, // Your Cognito App Client ID
-    Username: email,
-    Password: password,
-    UserAttributes: [
-      { Name: 'email', Value: email },
-      { Name: 'email_verified', Value: 'false' }, // Ensure email is not verified
-    ],
-  };
+const LAMBDA_URL = process.env.REACT_APP_LAMBDA_URL;
 
+export const signUp = async (email, password) => {
   try {
-    await cognito.signUp(params).promise();
-    return { message: 'Sign up successful, verification code sent' };
+    const response = await axios.post(LAMBDA_URL, {
+      action: 'signup',
+      email,
+      password,
+    });
+    return response.data;
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error(error.response.data.message);
   }
 };
 
-// The verify function (Stage 2)
-const verifyCode = async (email, validationCode) => {
-  const params = {
-    ClientId: process.env.COGNITO_USER_POOL_CLIENT_ID, // Your Cognito App Client ID
-    Username: email,
-    ConfirmationCode: validationCode,
-  };
-
+export const verifyCode = async (email, validationCode) => {
   try {
-    await cognito.confirmSignUp(params).promise();
-    return { message: 'Email verified successfully' };
+    const response = await axios.post(LAMBDA_URL, {
+      action: 'verify',
+      email,
+      validationCode,
+    });
+    return response.data;
   } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-// Lambda handler function
-exports.handler = async (event) => {
-  const { action, email, password, validationCode } = JSON.parse(event.body);
-
-  try {
-    let response;
-    
-    // Based on action, either sign up or verify code
-    if (action === 'signup') {
-      response = await signUp(email, password);
-    } else if (action === 'verify') {
-      response = await verifyCode(email, validationCode);
-    } else {
-      throw new Error('Invalid action');
-    }
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response),
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: error.message }),
-    };
+    throw new Error(error.response.data.message);
   }
 };

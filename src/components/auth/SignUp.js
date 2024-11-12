@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // For API calls to the backend
 import Verification from './Verification'; // Import the Verification component
+import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
+
+const poolData = {
+  UserPoolId: process.env.REACT_APP_USER_POOL_ID,
+  ClientId: process.env.REACT_APP_CLIENT_ID,
+};
+
+const userPool = new CognitoUserPool(poolData);
 
 function SignUp({ setIsRegistered }) {
   const [email, setEmail] = useState('');
@@ -19,25 +26,36 @@ function SignUp({ setIsRegistered }) {
     }
 
     setLoading(true);
-    // try {
-    //   // Send sign-up request to API (backend: AWS Lambda)
-    //   await axios.post('/api/authentication/signup', { email, password });
-
-    //   setIsCodeSent(true); // Show verification code input field after signup
-    //   setLoading(false);
-    // } catch (error) {
-    //   setLoading(false);
-    //   setErrorMessage("Sign up failed. Please try again.");
-    // }
-
-    // TODO
-    setIsCodeSent(true); // Show verification code input field after signup
-    setLoading(false);
+    userPool.signUp(email, password, [{ Name: 'email', Value: email }], null, (err, result) => {
+      setLoading(false);
+      if (err) {
+        setErrorMessage(err.message || JSON.stringify(err));
+        return;
+      }
+      setIsCodeSent(true);
+    });
   };
 
-  const handleCodeVerification = () => {
-    setIsCodeVerified(true); // Successfully verified the code
-    setIsRegistered(true); // Notify parent component that registration is complete
+  const handleCodeVerification = (verificationCode) => {
+    setLoading(true);
+  
+    const userData = {
+      Username: email,
+      Pool: userPool,
+    };
+  
+    const cognitoUser = new CognitoUser(userData);
+  
+    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
+      setLoading(false);
+  
+      if (err) {
+        setErrorMessage(err.message || JSON.stringify(err));
+        return;
+      }
+      setIsCodeVerified(true);
+      setIsRegistered(true);
+    });
   };
 
   return (
