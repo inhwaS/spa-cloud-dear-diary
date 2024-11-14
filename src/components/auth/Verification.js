@@ -21,10 +21,8 @@ function Verification({ email, loading, setLoading, setIsCodeVerified, setIsRegi
     };
 
     const cognitoUser = new CognitoUser(userData);
-    console.log('Verification: ' + validationCode);
     
     cognitoUser.confirmRegistration(validationCode, true, (err, result) => {
-      console.log(result);
       setLoading(false);
 
       if (err) {

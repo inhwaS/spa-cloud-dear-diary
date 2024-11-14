@@ -49,7 +49,7 @@ function SignUp({ setIsRegistered }) {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={isCodeSent || isCodeVerified} // Disable input fields after signup
+            disabled={isCodeSent || isCodeVerified}
             required
           />
         </div>
@@ -61,7 +61,7 @@ function SignUp({ setIsRegistered }) {
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={isCodeSent || isCodeVerified} // Disable input fields after signup
+            disabled={isCodeSent || isCodeVerified}
             required
           />
         </div>
@@ -73,7 +73,7 @@ function SignUp({ setIsRegistered }) {
             placeholder="Confirm your password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            disabled={isCodeSent || isCodeVerified} // Disable input fields after signup
+            disabled={isCodeSent || isCodeVerified}
             required
           />
         </div>

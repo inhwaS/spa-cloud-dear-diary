@@ -5,8 +5,6 @@ function Login({ setIsRegistered }) {
   const [password, setPassword] = useState('');
 
   const handleLoginSubmit = (e) => {
-    // TODO
-    console.log("User logged in!");
     setIsRegistered(true)
   };
 
