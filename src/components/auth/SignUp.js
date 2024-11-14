@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Verification from './Verification';
-import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
+import { CognitoUserPool } from 'amazon-cognito-identity-js';
 
 const poolData = {
   UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
@@ -36,33 +36,11 @@ function SignUp({ setIsRegistered }) {
     });
   };
 
-  const handleCodeVerification = (verificationCode) => {
-    setLoading(true);
-  
-    const userData = {
-      Username: email,
-      Pool: userPool,
-    };
-  
-    const cognitoUser = new CognitoUser(userData);
-  
-    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
-      setLoading(false);
-  
-      if (err) {
-        setErrorMessage(err.message || JSON.stringify(err));
-        return;
-      }
-      setIsCodeVerified(true);
-      setIsRegistered(true);
-    });
-  };
-
   return (
     <div className="AuthPage">
-      <h1>Sign Up for Dear Diary</h1>
+      <h2>Sign Up for Dear Diary</h2>
 
-      <form className='form-container'>
+      <form className="form-container">
         {/* Email and password fields */}
         <div className="form-group">
           <label>Email</label>
@@ -100,18 +78,21 @@ function SignUp({ setIsRegistered }) {
           />
         </div>
       </form>
-      {!isCodeSent ? (
-        <button className="BasicButton" disabled={loading} onClick={handleSignUpSubmit} >
-        {loading ? "Signing Up..." : "Sign Up"}
+      {/* Only show SignUp button if code is not sent */}
+        {!isCodeSent ? (
+        <button className="BasicButton" disabled={loading} onClick={handleSignUpSubmit}>
+          {loading ? "Signing Up..." : "Sign Up"}
         </button>
-    ) : null}
+      ) : null}
 
       {/* Show Verification Component after signup */}
       {isCodeSent && !isCodeVerified && (
         <Verification
           email={email}
-          onVerifyCode={handleCodeVerification}
           loading={loading}
+          setLoading={setLoading}
+          setIsCodeVerified={setIsCodeVerified}
+          setIsRegistered={setIsRegistered}
         />
       )}
 

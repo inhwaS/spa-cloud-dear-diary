@@ -1,27 +1,47 @@
-// Verification.js
 import React, { useState } from 'react';
+import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 
-function Verification({ email, onVerifyCode, loading }) {
+const poolData = {
+  UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
+  ClientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+};
+
+const userPool = new CognitoUserPool(poolData);
+
+function Verification({ email, loading, setLoading, setIsCodeVerified, setIsRegistered }) {
   const [validationCode, setValidationCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleValidateCode = async (e) => {
-    // e.preventDefault();
-    // try {
-    //   // Call the API to verify the code
-    //   await axios.post('/api/authentication/verify', { email, validationCode });
-    //   onVerifyCode(); // Notify parent that the code has been verified
-    // } catch (error) {
-    //   setErrorMessage("Invalid validation code. Please try again.");
-    // }
-    setErrorMessage("Invalid validation code. Please try again.");
-    onVerifyCode();
+  const handleValidateCode = async () => {
+    setLoading(true);
+
+    const userData = {
+      Username: email,
+      Pool: userPool,
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+    console.log('Verification: ' + validationCode);
+    
+    cognitoUser.confirmRegistration(validationCode, true, (err, result) => {
+      console.log(result);
+      setLoading(false);
+
+      if (err) {
+        setErrorMessage(err.message || JSON.stringify(err));
+        return;
+      }
+
+      setIsCodeVerified(true);
+      setIsRegistered(true);
+    });
   };
+
 
   return (
     <div className="verification-container">
       <h3>Enter the Verification Code sent to your email</h3>
-      <form className="form-container">
+      <form className="form-container" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <label>Verification Code</label>
           <input
@@ -33,9 +53,14 @@ function Verification({ email, onVerifyCode, loading }) {
           />
         </div>
       </form>
-      <button type="submit" className="BasicButton" disabled={loading} onClick={handleValidateCode} >
-          {loading ? "Verifying..." : "Verify Code"}
-        </button>
+      <button
+        type="button"
+        className="BasicButton"
+        disabled={loading}
+        onClick={handleValidateCode}
+      >
+        {loading ? "Verifying..." : "Verify Code"}
+      </button>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
