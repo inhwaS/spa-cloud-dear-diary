@@ -1,7 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'PT Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: 'PT Sans', sans-serif;
+}
+
+html, body {
+  margin: 0;
+  background-color: #f7f9fc; /* You can change this to your desired background */
+}
+
 /* Import a cute, handwritten font */
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 
-.App {
+.AppContainer {
   display: flex;
   flex-direction: column; /* Stacks header and main vertically */
   justify-content: center; /* Centers content vertically */

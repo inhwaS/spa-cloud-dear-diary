@@ -1,14 +1,13 @@
-// App.js
+// pages/index.js
 import React, { useState } from 'react';
-import CreateDiary from './components/CreateDiary';
-import WaitingForConnection from './components/WaitingForConnection';
-import ReadDiary from './components/ReadDiary';
-import DiaryMain from './components/DiaryMain';
-import WriteDiary from './components/WriteDiary';  // Assuming you have a WriteDiary component
-import './App.css';
-import Auth from './components/auth/Auth';
+import CreateDiary from '../components/CreateDiary';
+import WaitingForConnection from '../components/WaitingForConnection';
+import ReadDiary from '../components/ReadDiary';
+import DiaryMain from '../components/DiaryMain';
+import WriteDiary from '../components/WriteDiary';
+import Auth from '../components/auth/Auth';
 
-function App() {
+export default function Home() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [diaryCreated, setDiaryCreated] = useState(false);
   const [diaryConnected, setDiaryConnected] = useState(true);
@@ -27,7 +26,7 @@ function App() {
   const handleDiaryConnection = () => setDiaryConnected(true);
 
   return (
-    <div className="App">
+    <div className="AppContainer">
       <main className="Wrapper">
         {!isRegistered ? (
           <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered} />
@@ -38,7 +37,7 @@ function App() {
         ) : showWriteDiary ? (  // Conditionally render WriteDiary
           <WriteDiary setShowWriteDiary={setShowWriteDiary}/>
         ) : showReadDiary ? (
-          <ReadDiary  setShowReadDiary={setShowReadDiary} />
+          <ReadDiary setShowReadDiary={setShowReadDiary} />
         ) : (
           <DiaryMain
             diaryInfo={diaryInfo}
@@ -51,5 +50,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
