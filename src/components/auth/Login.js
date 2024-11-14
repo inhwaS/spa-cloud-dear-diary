@@ -1,11 +1,46 @@
 import React, { useState } from 'react';
+import { CognitoUser, AuthenticationDetails, CognitoUserPool } from 'amazon-cognito-identity-js';
+
+const poolData = {
+  UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
+  ClientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+};
+
+const userPool = new CognitoUserPool(poolData);
 
 function Login({ setIsRegistered }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   const handleLoginSubmit = (e) => {
-    setIsRegistered(true)
+    e.preventDefault();
+    setLoading(true);
+
+    const authenticationDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    });
+
+    // Create a CognitoUser object
+    const cognitoUser = new CognitoUser({
+      Username: email,
+      Pool: userPool,
+    });
+
+    // Authenticate the user
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (result) => {
+        setLoading(false);
+        setIsRegistered(true);
+      },
+      onFailure: (err) => {
+        setLoading(false);
+        setErrorMessage(err.message || JSON.stringify(err));
+      },
+    });
   };
 
   return (
@@ -36,7 +71,10 @@ function Login({ setIsRegistered }) {
           />
         </div>
       </form>
-      <button type="submit" className="BasicButton" onClick={handleLoginSubmit} >Login</button>
+      <button className="BasicButton" onClick={handleLoginSubmit} >
+        {loading ? "Logging In..." : "Log In"}
+      </button>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }
