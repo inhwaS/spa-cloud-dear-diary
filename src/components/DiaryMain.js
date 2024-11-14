@@ -6,13 +6,14 @@ const DiaryMain = ({ diaryInfo, setDiaryInfo, setShowReadDiary, setShowWriteDiar
   useEffect(() => {
     const getDiaryInfo = async () => {
       try {
-        const data = await fetchDiaryInfo();
-        setDiaryInfo({
-          name1: data.name1,
-          name2: data.name2,
-          date: data.date,
-          days: data.days,
-        });
+        // TODO: Fetch diary info
+        // const data = await fetchDiaryInfo();
+        // setDiaryInfo({
+        //   name1: data.name1,
+        //   name2: data.name2,
+        //   date: data.date,
+        //   days: data.days,
+        // });
       } catch (error) {
         console.error("Error fetching diary info:", error);
       }
