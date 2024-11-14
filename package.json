@@ -18,8 +18,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "vite test",
-    "eject": "echo 'Eject not supported with Next.js'"
+    "export": "next export"
   },
   "eslintConfig": {
     "extends": [
