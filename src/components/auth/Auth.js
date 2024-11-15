@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
 
-function Auth({ setIsRegistered }) {
+function Auth({ setIsRegistered, setCredentials }) {
   const [isLoginPage, setIsLoginPage] = useState(true);
 
   const handleTogglePage = () => {
@@ -12,7 +12,7 @@ function Auth({ setIsRegistered }) {
   return (
     <div className='DiaryMain'>
       {isLoginPage ? (
-        <Login setIsRegistered={setIsRegistered}/>
+        <Login setIsRegistered={setIsRegistered} setCredentials={setCredentials}/>
       ) : (
         <SignUp setIsRegistered={setIsRegistered} />
       )}

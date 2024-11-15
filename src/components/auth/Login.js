@@ -9,7 +9,7 @@ const poolData = {
 
 const userPool = new CognitoUserPool(poolData);
 
-function Login({ setIsRegistered }) {
+function Login({ setIsRegistered, setCredentials }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -52,6 +52,7 @@ function Login({ setIsRegistered }) {
       <OAuthCallback
         setIsRegistered={setIsRegistered}
         setLoading={setLoading}
+        setCredentials={setCredentials}
       />
       <h4>or</h4>
       <form className="form-container">

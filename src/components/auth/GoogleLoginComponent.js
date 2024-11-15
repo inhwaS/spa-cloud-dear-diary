@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
-const OAuthCallback = ({ setIsRegistered, setLoading }) => {
+const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
   const [error, setError] = useState(null);
   const router = useRouter(); // Hook to manage routing
 
@@ -12,7 +12,6 @@ const OAuthCallback = ({ setIsRegistered, setLoading }) => {
     setLoading(true);
     if (response.credential) {
       const googleIdToken = response.credential;
-      console.log(googleIdToken);
       fetchTokensFromBackend(googleIdToken);
     }
   };
@@ -26,16 +25,19 @@ const OAuthCallback = ({ setIsRegistered, setLoading }) => {
       },
       body: JSON.stringify({ googleIdToken: googleToken }),
     })
-      .then((response) => {
-
-        if(response.ok){
-          const data = response.json(); 
-          console.log(data); 
-        }else{
-          console.log(response);
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        setLoading(false);
-        setIsRegistered(true);
+        return response.json();
+      })
+      .then(data => {
+        setIsRegistered(true)
+        const credentials = data.credentials;
+        setCredentials(credentials);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
       });
   };
 

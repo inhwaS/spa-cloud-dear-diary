@@ -1,6 +1,7 @@
 import React from 'react';
 
-function CreateDiary({ onCreateDiary }) {
+function CreateDiary({ onCreateDiary, credential }) {
+  console.log(credential);
   return (
     <div className='DiaryMain'>
       <h2>Create Diary</h2>
