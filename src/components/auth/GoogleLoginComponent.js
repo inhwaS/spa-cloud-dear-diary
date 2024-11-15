@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/router';
-import { CognitoIdentityCredentials } from 'aws-sdk';
 
+const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;  // Make sure this is your actual Client ID
 
 const OAuthCallback = ({ setIsRegistered }) => {
   const [error, setError] = useState(null);
@@ -35,7 +35,10 @@ const OAuthCallback = ({ setIsRegistered }) => {
   return (
     <div>
       {error && <p>{error}</p>}
-      <GoogleLogin onSuccess={handleGoogleLogin} onError={(error) => console.log(error)} />
+      <GoogleLogin 
+        clientId={clientId}
+        onSuccess={handleGoogleLogin} 
+        onError={(error) => console.log(error)} />
     </div>
   );
 };

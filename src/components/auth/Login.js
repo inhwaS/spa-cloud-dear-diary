@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { CognitoUser, AuthenticationDetails, CognitoUserPool } from 'amazon-cognito-identity-js';
 import OAuthCallback from './GoogleLoginComponent';
-import { useRouter } from 'next/router';
-
 
 const poolData = {
   UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
