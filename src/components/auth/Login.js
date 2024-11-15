@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { CognitoUser, AuthenticationDetails, CognitoUserPool } from 'amazon-cognito-identity-js';
+import OAuthCallback from './GoogleLoginComponent';
+import { useRouter } from 'next/router';
+
 
 const poolData = {
   UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
@@ -40,12 +43,18 @@ function Login({ setIsRegistered }) {
         setLoading(false);
         setErrorMessage(err.message || JSON.stringify(err));
       },
+    
     });
   };
-
+  
   return (
     <div className="auth-container">
       <h2>Log In</h2>
+      {/* Google OAuth login button */}
+      <OAuthCallback
+        setIsRegistered={setIsRegistered}
+      />
+      <h4>or</h4>
       <form className="form-container">
         <div className="form-group">
           <label htmlFor="email">Email</label>
