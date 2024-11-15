@@ -19,15 +19,12 @@ const OAuthCallback = ({ setIsRegistered }) => {
   const fetchTokensFromBackend = async (googleToken) => {
     const response = await fetch(process.env.NEXT_PUBLIC_LAMBDA_URL, {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ googleIdToken: googleToken }),
     });
-
-    if(!response.ok){
-      throw Error(response.error);
-    }
 
     setIsRegistered(true);
   };
