@@ -4,11 +4,12 @@ import { useRouter } from 'next/router';
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
-const OAuthCallback = ({ setIsRegistered }) => {
+const OAuthCallback = ({ setIsRegistered, setLoading }) => {
   const [error, setError] = useState(null);
   const router = useRouter(); // Hook to manage routing
 
   const handleGoogleLogin = (response) => {
+    setLoading(true);
     if (response.credential) {
       const googleIdToken = response.credential;
       console.log(googleIdToken);
@@ -17,16 +18,25 @@ const OAuthCallback = ({ setIsRegistered }) => {
   };
 
   const fetchTokensFromBackend = async (googleToken) => {
-    const response = await fetch(process.env.NEXT_PUBLIC_LAMBDA_URL, {
+    fetch(process.env.NEXT_PUBLIC_LAMBDA_URL, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ googleIdToken: googleToken }),
-    });
+    })
+      .then((response) => {
 
-    setIsRegistered(true);
+        if(response.ok){
+          const data = response.json(); 
+          console.log(data); 
+        }else{
+          console.log(response);
+        }
+        setLoading(false);
+        setIsRegistered(true);
+      });
   };
 
   return (

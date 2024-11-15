@@ -51,6 +51,7 @@ function Login({ setIsRegistered }) {
       {/* Google OAuth login button */}
       <OAuthCallback
         setIsRegistered={setIsRegistered}
+        setLoading={setLoading}
       />
       <h4>or</h4>
       <form className="form-container">
