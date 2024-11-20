@@ -17,7 +17,7 @@ const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
     const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/dear-diary-cognito-verification`;
     fetch(fetchUrl, {
       method: 'POST',
-      mode: 'cors',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -39,7 +39,7 @@ const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
         console.error('Error fetching data:', error);
       });
   };
-  
+
   return (
     <div>
       {error && <p>{error}</p>}
