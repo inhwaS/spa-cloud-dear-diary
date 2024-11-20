@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createDiary } from '../api/createDiary';
 
 function CreateDiary({ setDiaryCreated, credentials }) {
   const [date, setDate] = useState('');
@@ -18,34 +19,9 @@ function CreateDiary({ setDiaryCreated, credentials }) {
     setLoading(true);
     e.preventDefault();
     const diaryId = generateRandomString();
-    const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/create-diary`;
+    const response = await createDiary(credentials, diaryId, date);
+    console.log(response);
 
-    try {
-      const response = await fetch(fetchUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          diaryId: diaryId,
-          startDate: date,
-          connected: false,
-          user1: credentials,
-        }),
-      });
-
-      if (!response.ok) {
-        console.error('Failed to create diary:', response.status);
-        return;
-      }
-
-      console.log('Diary created successfully!');
-      setDiaryCreated(true); // Notify parent of successful diary creation
-      setLoading(false);
-    } catch (error) {
-      console.error('Error during diary creation:', error);
-      setLoading(false);
-    }
   };
 
   return (

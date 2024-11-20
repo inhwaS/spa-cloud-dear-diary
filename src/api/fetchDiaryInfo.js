@@ -18,7 +18,6 @@ export const fetchDiaryInfo = async (userId) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching diary info:", error);
     return null;
   }
 };

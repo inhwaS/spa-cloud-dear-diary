@@ -20,7 +20,7 @@ const DiaryMain = ({
   const [showWriteDiary, setShowWriteDiaryLocal] = useState(false);
 
   return (
-    <div className="DiaryMain">
+    <div>
       {/* Conditional Rendering of Components */}
       {!diaryCreated ? (
         <CreateDiary setDiaryCreated={setDiaryCreated} credentials={credentials} />
@@ -31,7 +31,7 @@ const DiaryMain = ({
       ) : showReadDiary ? (
         <ReadDiary setShowReadDiary={setShowReadDiaryLocal} />
       ) : (
-        <div className="DiaryContent">
+        <div className="DiaryMain">
           <div className="DiaryHeader">
             <span>{diaryInfo?.name1 || 'User1'}</span>
             <img src="./images/heart.png" alt="hearts" />

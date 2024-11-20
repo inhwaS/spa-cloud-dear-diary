@@ -1,6 +1,7 @@
 // src/api/createDiary.js
 
-export const createDiary = async ({ diaryId, startDate, connected, user1 }) => {
+export const createDiary = async ({ diaryId, startDate, credentials }) => {
+    console.log("createDiary diary info for user:", credentials, diaryId, startDate);
     const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/insert-diary`;
   
     try {
@@ -10,7 +11,12 @@ export const createDiary = async ({ diaryId, startDate, connected, user1 }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ diaryId, startDate, connected, user1 }),
+        body: JSON.stringify({
+            diaryId: diaryId,
+            startDate: startDate,
+            connected: false,
+            user1: credentials,
+          }),
       });
   
       if (!response.ok) {

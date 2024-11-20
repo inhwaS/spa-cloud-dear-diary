@@ -3,7 +3,7 @@ import DiaryMain from './DiaryMain';
 import { fetchDiaryInfo } from '../api/fetchDiaryInfo';
 
 export default function DiaryHome({ credentials }) {
-  const [diaryCreated, setDiaryCreated] = useState(null);
+  const [diaryCreated, setDiaryCreated] = useState(false);
   const [diaryConnected, setDiaryConnected] = useState(null);
   const [showReadDiary, setShowReadDiary] = useState(null);
   const [showWriteDiary, setShowWriteDiary] = useState(null);
@@ -22,7 +22,7 @@ export default function DiaryHome({ credentials }) {
       const fetchData = async () => {
         const userId = credentials;
         const diaryData = await fetchDiaryInfo(userId);
-        if (diaryData) {
+        if (diaryData[0]) {
           setDiaryInfo({
             diaryId: diaryData[0].diaryId,
             name1: diaryData[0].user1,
@@ -37,8 +37,7 @@ export default function DiaryHome({ credentials }) {
   }, [credentials]);
 
   useEffect(() => {
-    console.log(diaryInfo);
-    if (diaryInfo) {
+    if (diaryInfo.diaryId) {
       setDiaryCreated(true);
       if(diaryInfo.connected){
           setDiaryConnected(true);
