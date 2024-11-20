@@ -13,7 +13,7 @@ export default function Home() {
   const [diaryConnected, setDiaryConnected] = useState(true);
   const [showReadDiary, setShowReadDiary] = useState(false);
   const [showWriteDiary, setShowWriteDiary] = useState(false); // State for WriteDiary visibility
-  const [credential, setCredentials] = useState('');
+  const [credentials, setCredentials] = useState('');
 
   const [diaryInfo, setDiaryInfo] = useState({
     name1: '',
@@ -23,7 +23,6 @@ export default function Home() {
   });
 
   const handleLogin = () => setIsRegistered(true);
-  const handleDiaryCreation = () => setDiaryCreated(true);
   const handleDiaryConnection = () => setDiaryConnected(true);
 
   return (
@@ -32,7 +31,7 @@ export default function Home() {
         {!isRegistered ? (
           <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered} setCredentials={setCredentials}/>
         ) : !diaryCreated ? (
-          <CreateDiary onCreateDiary={handleDiaryCreation} credential={credential} />
+          <CreateDiary setDiaryCreated={setDiaryCreated} credentials={credentials} />
         ) : !diaryConnected ? (
           <WaitingForConnection onConnectDiary={handleDiaryConnection} />
         ) : showWriteDiary ? (  // Conditionally render WriteDiary

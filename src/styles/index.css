@@ -201,3 +201,23 @@ html, body {
 h2 {
   text-align: center;
 }
+
+.date-input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.date-input-container input[type="date"] {
+  padding: 10px;
+  font-size: 1em;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.date-input-container input[type="date"]:focus {
+  border-color: #4b0082;
+  box-shadow: 0 0 10px rgba(0, 86, 179, 0.3);
+}

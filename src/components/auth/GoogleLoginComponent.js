@@ -17,7 +17,8 @@ const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
   };
 
   const fetchTokensFromBackend = async (googleToken) => {
-    fetch(process.env.NEXT_PUBLIC_LAMBDA_URL, {
+    const fetchUrl = process.env.NEXT_PUBLIC_LAMBDA_URL+`/dear-diary-cognito-verification`
+    fetch(fetchUrl, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -27,14 +28,15 @@ const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
     })
       .then(response => {
         if (!response.ok) {
+          setError(response.error);
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
       .then(data => {
         setIsRegistered(true)
-        const credentials = data.credentials;
-        setCredentials(credentials);
+        console.log(data.email);
+        setCredentials(data.email);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
