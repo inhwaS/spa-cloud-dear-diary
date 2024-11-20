@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 
 function CreateDiary({ setDiaryCreated, credentials }) {
   const [date, setDate] = useState('');
+  const [loading, setLoading] = useState(false);
 
   function generateRandomString() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
     for (let i = 0; i < 6; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        result += characters.charAt(randomIndex);
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
     }
     return result;
   }
-  
-  const handleDiaryCreation = async () => {
+
+  const handleDiaryCreation = async (e) => {
+    setLoading(true);
+    e.preventDefault();
     const diaryId = generateRandomString();
-    const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/insertDiary`;
-    console.log('Sending request to:', fetchUrl);
-  
+    const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/create-diary`;
+
     try {
       const response = await fetch(fetchUrl, {
         method: 'POST',
@@ -31,32 +33,37 @@ function CreateDiary({ setDiaryCreated, credentials }) {
           user1: credentials,
         }),
       });
-  
-      console.log('API response:', response);
-  
+
       if (!response.ok) {
         console.error('Failed to create diary:', response.status);
-        return;  // Stop further execution if there's an error
+        return;
       }
-  
-      // Handle success response here
+
       console.log('Diary created successfully!');
+      setDiaryCreated(true); // Notify parent of successful diary creation
+      setLoading(false);
     } catch (error) {
       console.error('Error during diary creation:', error);
+      setLoading(false);
     }
   };
-  
-  
 
   return (
-    <div className='DiaryMain'>
+    <div className="DiaryMain">
       <h2>Create Diary</h2>
       <form onSubmit={handleDiaryCreation}>
-        <div className='date-input-container'>
-        <h4>Our journey began at &nbsp;&nbsp;</h4>
-        <input type='date' value={date} onChange={(e) => setDate(e.target.value)} required/>
+        <div className="date-input-container">
+          <h4>Our journey began at &nbsp;&nbsp;</h4>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
         </div>
-        <button type='submit' className='BasicButton'>Create Diary</button>
+        <button type="submit" className="BasicButton">
+          {loading ? "Creating Diary..." : "Create Diary"}
+        </button>
       </form>
     </div>
   );

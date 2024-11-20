@@ -1,50 +1,31 @@
 // pages/index.js
-import React, { useState } from 'react';
-import CreateDiary from '../components/CreateDiary';
-import WaitingForConnection from '../components/WaitingForConnection';
-import ReadDiary from '../components/ReadDiary';
-import DiaryMain from '../components/DiaryMain';
-import WriteDiary from '../components/WriteDiary';
+import React, { useState, useEffect } from 'react';
 import Auth from '../components/auth/Auth';
+import DiaryHome from '../components/DiaryHome';
 
 export default function Home() {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [diaryCreated, setDiaryCreated] = useState(false);
-  const [diaryConnected, setDiaryConnected] = useState(true);
-  const [showReadDiary, setShowReadDiary] = useState(false);
-  const [showWriteDiary, setShowWriteDiary] = useState(false); // State for WriteDiary visibility
   const [credentials, setCredentials] = useState('');
 
-  const [diaryInfo, setDiaryInfo] = useState({
-    name1: '',
-    name2: '',
-    date: '',
-    days: 0,
-  });
+  useEffect(() => {
+    if (isRegistered) {
+      console.log('User is registered.');
+    }
+  }, [isRegistered]);
 
-  const handleLogin = () => setIsRegistered(true);
-  const handleDiaryConnection = () => setDiaryConnected(true);
+  useEffect(() => {
+    if (credentials) {
+      console.log('User :', credentials);
+    }
+  }, [credentials]);
 
   return (
     <div className="AppContainer">
       <main className="Wrapper">
         {!isRegistered ? (
-          <Auth onRegister={handleLogin} setIsRegistered={setIsRegistered} setCredentials={setCredentials}/>
-        ) : !diaryCreated ? (
-          <CreateDiary setDiaryCreated={setDiaryCreated} credentials={credentials} />
-        ) : !diaryConnected ? (
-          <WaitingForConnection onConnectDiary={handleDiaryConnection} />
-        ) : showWriteDiary ? (  // Conditionally render WriteDiary
-          <WriteDiary setShowWriteDiary={setShowWriteDiary}/>
-        ) : showReadDiary ? (
-          <ReadDiary setShowReadDiary={setShowReadDiary} />
+          <Auth setIsRegistered={setIsRegistered} setCredentials={setCredentials}/>
         ) : (
-          <DiaryMain
-            diaryInfo={diaryInfo}
-            setDiaryInfo={setDiaryInfo}
-            setShowReadDiary={setShowReadDiary}
-            setShowWriteDiary={setShowWriteDiary}
-          />
+          <DiaryHome credentials={credentials}/>
         )}
       </main>
     </div>

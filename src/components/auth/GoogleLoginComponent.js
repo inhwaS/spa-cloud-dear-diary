@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { useRouter } from 'next/router';
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
   const [error, setError] = useState(null);
-  const router = useRouter(); // Hook to manage routing
-
   const handleGoogleLogin = (response) => {
     setLoading(true);
     if (response.credential) {
@@ -17,7 +14,7 @@ const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
   };
 
   const fetchTokensFromBackend = async (googleToken) => {
-    const fetchUrl = process.env.NEXT_PUBLIC_LAMBDA_URL+`/dear-diary-cognito-verification`
+    const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/dear-diary-cognito-verification`;
     fetch(fetchUrl, {
       method: 'POST',
       mode: 'cors',
@@ -42,7 +39,7 @@ const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
         console.error('Error fetching data:', error);
       });
   };
-
+  
   return (
     <div>
       {error && <p>{error}</p>}

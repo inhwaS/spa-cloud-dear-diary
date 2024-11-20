@@ -1,45 +1,52 @@
-// src/components/DiaryMain.js
-import React, { useEffect } from 'react';
-import { fetchDiaryInfo } from '../api/diaryService'
+import React, { useEffect, useState } from 'react';
+import { fetchDiaryInfo } from '../api/fetchDiaryInfo';
+import CreateDiary from '../components/CreateDiary';
+import WaitingForConnection from '../components/WaitingForConnection';
+import WriteDiary from '../components/WriteDiary';
+import ReadDiary from '../components/ReadDiary';
 
-const DiaryMain = ({ diaryInfo, setDiaryInfo, setShowReadDiary, setShowWriteDiary }) => {
-  useEffect(() => {
-    const getDiaryInfo = async () => {
-      try {
-        // TODO: Fetch diary info
-        // const data = await fetchDiaryInfo();
-        // setDiaryInfo({
-        //   name1: data.name1,
-        //   name2: data.name2,
-        //   date: data.date,
-        //   days: data.days,
-        // });
-      } catch (error) {
-        console.error("Error fetching diary info:", error);
-      }
-    };
-    getDiaryInfo();
-  }, [setDiaryInfo]); 
+const DiaryMain = ({
+  credentials,
+  diaryInfo,
+  diaryCreated,
+  diaryConnected,
+  setDiaryInfo,
+  setShowReadDiary,
+  setShowWriteDiary,
+  setDiaryCreated,
+  setDiaryConnected,
+}) => {
+  const [showReadDiary, setShowReadDiaryLocal] = useState(false);
+  const [showWriteDiary, setShowWriteDiaryLocal] = useState(false);
 
   return (
     <div className="DiaryMain">
-      <div className="DiaryHeader">
-        <span>{diaryInfo.name1}</span>
-        <img src="./images/heart.png" alt="hearts" />
-        <span>{diaryInfo.name2}</span>
-      </div>
-      <p>{diaryInfo.date} • {diaryInfo.days} days</p>
-
-      {/* Diary Icon as button */}
-      <div className="DiaryIcon" onClick={() => setShowReadDiary(true)}>
-        <img src="./images/diary.png" alt="Diary" style={{ cursor: 'pointer' }} />
-      </div>
-      <button 
-        className="BasicButton" 
-        onClick={() => setShowWriteDiary(true)}
-      >
-        New Entry
-      </button>
+      {/* Conditional Rendering of Components */}
+      {!diaryCreated ? (
+        <CreateDiary setDiaryCreated={setDiaryCreated} credentials={credentials} />
+      ) : !diaryConnected ? (
+        <WaitingForConnection diaryInfo={diaryInfo} />
+      ) : showWriteDiary ? (
+        <WriteDiary setShowWriteDiary={setShowWriteDiaryLocal} />
+      ) : showReadDiary ? (
+        <ReadDiary setShowReadDiary={setShowReadDiaryLocal} />
+      ) : (
+        <div className="DiaryContent">
+          <div className="DiaryHeader">
+            <span>{diaryInfo?.name1 || 'User1'}</span>
+            <img src="./images/heart.png" alt="hearts" />
+            <span>{diaryInfo?.name2 || 'User2'}</span>
+          </div>
+          <p>{diaryInfo?.date || 'Unknown date'} • {diaryInfo?.days || 0} days</p>
+          {/* Diary Main Content */}
+          <div className="DiaryIcon" onClick={() => setShowReadDiaryLocal(true)}>
+            <img src="./images/diary.png" alt="Diary" style={{ cursor: 'pointer' }} />
+          </div>
+          <button className="BasicButton" onClick={() => setShowWriteDiaryLocal(true)}>
+            New Entry
+          </button>
+        </div>
+      )}
     </div>
   );
 };
