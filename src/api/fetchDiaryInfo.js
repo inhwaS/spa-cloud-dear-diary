@@ -1,5 +1,6 @@
-export const fetchDiaryInfo = async (userId) => {
-  console.log("Fetching diary info for user:", userId);
+export const fetchDiaryInfo = async (credentials) => {
+  console.log("Fetching diary info for user:", credentials.email);
+  const userId = credentials.email;
   const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/fetch-diary`;
 
   try {

@@ -88,6 +88,7 @@ function Diary({ setDiaryCreated, credentials, setDiaryConnected}) {
                 placeholder="Enter diary ID" 
                 value={diaryId}
                 onChange={(e) => setDiaryId(e.target.value)}
+                required
               />
               <button 
                 onClick={handleConnectDiary} 

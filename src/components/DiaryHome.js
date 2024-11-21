@@ -27,8 +27,8 @@ export default function DiaryHome({ credentials }) {
   };
   
   const getDiaryInfo = async () => {
-    console.log(credentials.email);
-    const diaryData = await fetchDiaryInfo(credentials.email);
+    console.log(credentials);
+    const diaryData = await fetchDiaryInfo(credentials);
     if (diaryData[0]) {
       const days = calculateDaysPassed(diaryData[0].startDate);
       setDiaryInfo({

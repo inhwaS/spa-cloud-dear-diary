@@ -31,7 +31,7 @@ function Verification({ email, loading, setLoading, setIsCodeVerified, setIsRegi
       }
 
       setIsCodeVerified(true);
-      setIsRegistered(true);
+      setIsRegistered(false);
     });
   };
 

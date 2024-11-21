@@ -14,7 +14,7 @@ function Auth({ setIsRegistered, setCredentials }) {
       {isLoginPage ? (
         <Login setIsRegistered={setIsRegistered} setCredentials={setCredentials}/>
       ) : (
-        <SignUp setIsRegistered={setIsRegistered} />
+        <SignUp setIsRegistered={setIsRegistered} setCredentials={setCredentials}/>
       )}
       <div onClick={handleTogglePage} className='DivForClick'>
         {isLoginPage ? 'No Account? Need to Sign Up' : 'Already have an account? Log In'}

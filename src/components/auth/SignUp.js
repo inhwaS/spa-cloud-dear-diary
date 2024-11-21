@@ -12,6 +12,7 @@ const userPool = new CognitoUserPool(poolData);
 function SignUp({ setIsRegistered }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [isCodeVerified, setIsCodeVerified] = useState(false);
@@ -26,7 +27,17 @@ function SignUp({ setIsRegistered }) {
     }
 
     setLoading(true);
-    userPool.signUp(email, password, [{ Name: 'email', Value: email }], null, (err, result) => {
+    const signUpData = {
+      Username: email,
+      Password: password,
+      Attributes: [
+        { Name: "email", Value: email }, 
+        { Name: "custom:username", Value: username }, 
+      ],
+    };
+  
+    setLoading(true);
+    userPool.signUp(email, password, signUpData.Attributes, null, (err, result) => {
       setLoading(false);
       if (err) {
         setErrorMessage(err.message || JSON.stringify(err));
@@ -41,7 +52,18 @@ function SignUp({ setIsRegistered }) {
       <h2>Sign Up for Dear Diary</h2>
 
       <form className="form-container">
-        {/* Email and password fields */}
+        <div className="form-group">
+          <label>Name</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={isCodeSent || isCodeVerified }
+            required
+          />
+        </div>
+
         <div className="form-group">
           <label>Email</label>
           <input

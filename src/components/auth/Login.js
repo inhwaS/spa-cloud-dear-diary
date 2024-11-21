@@ -36,12 +36,27 @@ function Login({ setIsRegistered, setCredentials }) {
       onSuccess: (result) => {
         setLoading(false);
         setIsRegistered(true);
+
+        // Fetch user attributes after successful authentication
+        cognitoUser.getUserAttributes((err, attributes) => {
+          if (err) {
+            console.error("Error fetching user attributes:", err);
+            setErrorMessage(err.message || JSON.stringify(err));
+            return;
+          }
+
+          // Extract custom:username from attributes
+          const customUsernameAttr = attributes.find(attr => attr.Name === "custom:username");
+          const customUsername = customUsernameAttr ? customUsernameAttr.Value : null;
+
+          console.log("Custom Username:", customUsername);
+          setCredentials({ email, name: customUsername });
+        });
       },
       onFailure: (err) => {
         setLoading(false);
         setErrorMessage(err.message || JSON.stringify(err));
       },
-    
     });
   };
   

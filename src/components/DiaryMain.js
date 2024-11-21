@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { fetchDiaryInfo } from '../api/fetchDiaryInfo';
 import CreateDiary from '../components/CreateDiary';
 import WaitingForConnection from '../components/WaitingForConnection';
 import WriteDiary from '../components/WriteDiary';
