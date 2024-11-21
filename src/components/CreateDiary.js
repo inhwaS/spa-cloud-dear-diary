@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { createDiary } from '../api/createDiary';
 
-function CreateDiary({ setDiaryCreated, credentials }) {
+function Diary() {
+  const [selectedAccordion, setSelectedAccordion] = useState(''); // To track which accordion is selected
   const [date, setDate] = useState('');
   const [loading, setLoading] = useState(false);
+  const [credentials, setCredentials] = useState(""); // Replace with your credentials state
+  const [diaryCreated, setDiaryCreated] = useState(false);
 
+  // Function to generate a random diary ID
   function generateRandomString() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -15,6 +19,7 @@ function CreateDiary({ setDiaryCreated, credentials }) {
     return result;
   }
 
+  // Handle the diary creation form submission
   const handleDiaryCreation = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -23,25 +28,77 @@ function CreateDiary({ setDiaryCreated, credentials }) {
     setDiaryCreated(true);
   };
 
+  // Handle Connect Diary button click
+  const handleConnectDiary = () => {
+    // Logic for connecting the diary (this can be modified to match your implementation)
+    console.log('Connecting to diary...');
+  };
+
   return (
     <div className="DiaryMain">
-      <h2>Create Diary</h2>
-      <form onSubmit={handleDiaryCreation}>
-        <div className="date-input-container">
-          <h4>Our journey began at &nbsp;&nbsp;</h4>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
+      <div>
+        {/* Accordion 1: Create Diary */}
+        <div className="accordion">
+          <button className='AccordionButton'
+            onClick={() => setSelectedAccordion(selectedAccordion === 'create' ? '' : 'create')}
+            aria-expanded={selectedAccordion === 'create'}
+          >
+            <h3>New Diary</h3>
+          </button>
+
+          {selectedAccordion === 'create' && (
+            <div className="accordion-content">
+              <form onSubmit={handleDiaryCreation}>
+                <div className="date-input-container">
+                  <h4>Our journey began at &nbsp;&nbsp;</h4>
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                  />
+                </div>
+                <button 
+                  type="submit" 
+                  className="BasicButton" 
+                  disabled={selectedAccordion !== 'create'}
+                >
+                  {loading ? "Creating Diary..." : "Create Diary"}
+                </button>
+              </form>
+            </div>
+          )}
         </div>
-        <button type="submit" className="BasicButton">
-          {loading ? "Creating Diary..." : "Create Diary"}
-        </button>
-      </form>
+
+        {/* Accordion 2: Connect Diary */}
+        <div className="accordion">
+          <button className='AccordionButton'
+            onClick={() => setSelectedAccordion(selectedAccordion === 'connect' ? '' : 'connect')}
+            aria-expanded={selectedAccordion === 'connect'}
+          >
+            <h3>Connect Diary</h3>
+          </button>
+          {selectedAccordion === 'connect' && (
+            <div className="form-group">
+              <input 
+                type="text" 
+                placeholder="Enter diary ID" 
+                value={credentials} 
+                onChange={(e) => setCredentials(e.target.value)} 
+              />
+              <button 
+                onClick={handleConnectDiary} 
+                className="BasicButton" 
+                disabled={selectedAccordion !== 'connect'}
+              >
+                Connect
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
-export default CreateDiary;
+export default Diary;
