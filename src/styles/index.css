@@ -254,3 +254,43 @@ h2 {
   border: none;
   background-color: transparent;
 }
+
+
+.refresh-btn {
+  background-color: transparent;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.refresh-btn .circle {
+  width: 5px;
+  height: 5px;
+  border: 2px solid #007bff;
+  border-radius: 70%;
+  border-top-color: transparent;
+}
+
+.refresh-btn:hover {
+  transform: scale(1.1);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.input-refresh{
+  justify-content: center;
+  align-items: center;
+}

@@ -90,6 +90,7 @@ export default function DiaryHome({ credentials }) {
           setShowWriteDiary={setShowWriteDiary}
           setDiaryCreated={setDiaryCreated}
           setDiaryConnected={setDiaryConnected}
+          getDiaryInfo={getDiaryInfo}
         />
       </main>
     </div>

@@ -14,6 +14,7 @@ const DiaryMain = ({
   setShowWriteDiary,
   setDiaryCreated,
   setDiaryConnected,
+  getDiaryInfo,
 }) => {
   const [showReadDiary, setShowReadDiaryLocal] = useState(false);
   const [showWriteDiary, setShowWriteDiaryLocal] = useState(false);
@@ -25,7 +26,7 @@ const DiaryMain = ({
       {!diaryCreated ? (
         <CreateDiary setDiaryCreated={setDiaryCreated} setDiaryConnected={setDiaryConnected} credentials={credentials} />
       ) : !diaryConnected ? (
-        <WaitingForConnection diaryInfo={diaryInfo} />
+        <WaitingForConnection diaryInfo={diaryInfo} getDiaryInfo={getDiaryInfo}/>
       ) : showWriteDiary ? (
         <WriteDiary setShowWriteDiary={setShowWriteDiaryLocal} />
       ) : showReadDiary ? (
