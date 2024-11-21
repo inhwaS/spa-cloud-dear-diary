@@ -13,7 +13,8 @@ export const createDiary = async ({ diaryId, date, credentials }) => {
         diaryId: diaryId,
         startDate: date,
         connected: false,
-        user1: credentials,
+        user1: credentials.email,
+        user1Name: credentials.name,
         }),
     });
 

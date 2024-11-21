@@ -18,12 +18,13 @@ export default function DiaryHome({ credentials }) {
   });
 
   const getDiaryInfo = async () => {
-    const diaryData = await fetchDiaryInfo(credentials);
+    console.log(credentials.email);
+    const diaryData = await fetchDiaryInfo(credentials.email);
     if (diaryData[0]) {
       setDiaryInfo({
         diaryId: diaryData[0].diaryId,
-        name1: diaryData[0].user1,
-        name2: diaryData[0].user2,
+        name1: diaryData[0].user1Name,
+        name2: diaryData[0].user2Name,
         date: diaryData[0].startDate,
         connected: diaryData[0].connected == 1 ? true : false,
       });
@@ -60,7 +61,8 @@ export default function DiaryHome({ credentials }) {
 
   useEffect(() => {
     if (diaryConnected) {
-      console.log('Diary has been successfully connected.');
+      console.log('Diary has been successfully connected. getting diary info...');
+      getDiaryInfo();
     }
   }, [diaryConnected]);
 
@@ -72,11 +74,11 @@ export default function DiaryHome({ credentials }) {
           diaryInfo={diaryInfo}
           diaryCreated={diaryCreated}
           diaryConnected={diaryConnected}
-          setDiaryConnected={setDiaryConnected}
           setDiaryInfo={setDiaryInfo}
           setShowReadDiary={setShowReadDiary}
           setShowWriteDiary={setShowWriteDiary}
           setDiaryCreated={setDiaryCreated}
+          setDiaryConnected={setDiaryConnected}
         />
       </main>
     </div>

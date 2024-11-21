@@ -19,12 +19,12 @@ const DiaryMain = ({
   const [showReadDiary, setShowReadDiaryLocal] = useState(false);
   const [showWriteDiary, setShowWriteDiaryLocal] = useState(false);
 
-  
+
   return (
     <div>
       {/* Conditional Rendering of Components */}
       {!diaryCreated ? (
-        <CreateDiary setDiaryCreated={setDiaryCreated} credentials={credentials} />
+        <CreateDiary setDiaryCreated={setDiaryCreated} setDiaryConnected={setDiaryConnected} credentials={credentials} />
       ) : !diaryConnected ? (
         <WaitingForConnection diaryInfo={diaryInfo} />
       ) : showWriteDiary ? (

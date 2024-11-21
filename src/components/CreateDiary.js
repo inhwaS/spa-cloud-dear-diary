@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createDiary } from '../api/createDiary';
 import { connectDiary } from '../api/connectDiary';
 
-function Diary({ setDiaryCreated, credentials }) {
+function Diary({ setDiaryCreated, credentials, setDiaryConnected}) {
   const [selectedAccordion, setSelectedAccordion] = useState(""); // To track which accordion is selected
   const [date, setDate] = useState('');
   const [loading, setLoading] = useState(false);
@@ -29,11 +29,11 @@ function Diary({ setDiaryCreated, credentials }) {
   };
 
   // Handle Connect Diary button click
-  const handleConnectDiary = async (e) => {  // Add async here
+  const handleConnectDiary = async (e) => {
     setLoading(true);
-    e.preventDefault();  // Ensure e is passed in
+    e.preventDefault();
     const response = await connectDiary({diaryId, credentials});
-    setDiaryCreated(true);
+    setDiaryConnected(true);
   };
 
 
@@ -94,7 +94,7 @@ function Diary({ setDiaryCreated, credentials }) {
                 className="BasicButton" 
                 disabled={selectedAccordion !== 'connect'}
               >
-                Connect
+                {loading ? "Connecting..." : "Connect"}
               </button>
             </div>
           )}

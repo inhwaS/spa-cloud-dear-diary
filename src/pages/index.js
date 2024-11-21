@@ -5,7 +5,10 @@ import DiaryHome from '../components/DiaryHome';
 
 export default function Home() {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [credentials, setCredentials] = useState('');
+  const [credentials, setCredentials] = useState({
+    email: '',
+    name: '',
+  });
 
   useEffect(() => {
     if (isRegistered) {
