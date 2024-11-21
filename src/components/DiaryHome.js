@@ -17,22 +17,22 @@ export default function DiaryHome({ credentials }) {
     connected: false,
   });
 
+  const getDiaryInfo = async () => {
+    const diaryData = await fetchDiaryInfo(credentials);
+    if (diaryData[0]) {
+      setDiaryInfo({
+        diaryId: diaryData[0].diaryId,
+        name1: diaryData[0].user1,
+        name2: diaryData[0].user2,
+        date: diaryData[0].startDate,
+        connected: diaryData[0].connected == 1 ? true : false,
+      });
+    };
+  };
+
   useEffect(() => {
     if (credentials) {
-      const fetchData = async () => {
-        const userId = credentials;
-        const diaryData = await fetchDiaryInfo(userId);
-        if (diaryData[0]) {
-          setDiaryInfo({
-            diaryId: diaryData[0].diaryId,
-            name1: diaryData[0].user1,
-            name2: diaryData[0].user2,
-            date: diaryData[0].startDate,
-            connected: diaryData[0].connected == 1 ? true : false,
-          });
-        }
-      };
-      fetchData();
+      getDiaryInfo();
     }
   }, [credentials]);
 
@@ -53,7 +53,7 @@ export default function DiaryHome({ credentials }) {
 
   useEffect(() => {
     if (diaryCreated) {
-      console.log('Diary has been successfully created.');
+      getDiaryInfo();
     }
   }, [diaryCreated]);
 

@@ -19,9 +19,8 @@ function CreateDiary({ setDiaryCreated, credentials }) {
     setLoading(true);
     e.preventDefault();
     const diaryId = generateRandomString();
-    const response = await createDiary(credentials, diaryId, date);
-    console.log(response);
-
+    const response = await createDiary({diaryId, date, credentials});
+    setDiaryCreated(true);
   };
 
   return (

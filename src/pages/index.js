@@ -9,13 +9,11 @@ export default function Home() {
 
   useEffect(() => {
     if (isRegistered) {
-      console.log('User is registered.');
     }
   }, [isRegistered]);
 
   useEffect(() => {
     if (credentials) {
-      console.log('User :', credentials);
     }
   }, [credentials]);
 

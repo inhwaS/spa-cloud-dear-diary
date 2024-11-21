@@ -19,6 +19,7 @@ const DiaryMain = ({
   const [showReadDiary, setShowReadDiaryLocal] = useState(false);
   const [showWriteDiary, setShowWriteDiaryLocal] = useState(false);
 
+  
   return (
     <div>
       {/* Conditional Rendering of Components */}
