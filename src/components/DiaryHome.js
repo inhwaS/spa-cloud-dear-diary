@@ -53,6 +53,7 @@ export default function DiaryHome({ credentials }) {
 
   useEffect(() => {
     if (diaryCreated) {
+      console.log('Diary has been successfully created. Fetching diary info...');
       getDiaryInfo();
     }
   }, [diaryCreated]);

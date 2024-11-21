@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { createDiary } from '../api/createDiary';
+import { connectDiary } from '../api/connectDiary';
 
-function Diary() {
-  const [selectedAccordion, setSelectedAccordion] = useState(''); // To track which accordion is selected
+function Diary({ setDiaryCreated, credentials }) {
+  const [selectedAccordion, setSelectedAccordion] = useState(""); // To track which accordion is selected
   const [date, setDate] = useState('');
   const [loading, setLoading] = useState(false);
-  const [credentials, setCredentials] = useState(""); // Replace with your credentials state
-  const [diaryCreated, setDiaryCreated] = useState(false);
+  const [diaryId, setDiaryId] = useState("");
 
   // Function to generate a random diary ID
   function generateRandomString() {
@@ -29,10 +29,13 @@ function Diary() {
   };
 
   // Handle Connect Diary button click
-  const handleConnectDiary = () => {
-    // Logic for connecting the diary (this can be modified to match your implementation)
-    console.log('Connecting to diary...');
+  const handleConnectDiary = async (e) => {  // Add async here
+    setLoading(true);
+    e.preventDefault();  // Ensure e is passed in
+    const response = await connectDiary({diaryId, credentials});
+    setDiaryCreated(true);
   };
+
 
   return (
     <div className="DiaryMain">
@@ -83,8 +86,8 @@ function Diary() {
               <input 
                 type="text" 
                 placeholder="Enter diary ID" 
-                value={credentials} 
-                onChange={(e) => setCredentials(e.target.value)} 
+                value={diaryId}
+                onChange={(e) => setDiaryId(e.target.value)}
               />
               <button 
                 onClick={handleConnectDiary} 
