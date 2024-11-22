@@ -1,16 +1,15 @@
-// src/components/WriteDiary.js
 import React, { useState } from 'react';
-import { FaImage, FaMicrophoneAlt } from 'react-icons/fa'; // Importing React Icons
 import ImageUploader from './ImageUploader';
+import { FaMicrophoneAlt } from 'react-icons/fa'; // Importing React Icons
 
-function WriteDiary({ setShowWriteDiary }) {
+function WriteDiary({ setShowWriteDiary, credentials }) {
   const [content, setContent] = useState('');
   const [refinedContent, setRefinedContent] = useState(null);
+  const [isImageUploaded, setIsImageUploaded] = useState(false); // New state to track image upload
 
   const handleRefineContent = () => {
     // Simulate LLM refinement process
     setRefinedContent(`Refined: ${content}`);
-    // TODO
     setContent(false);
   };
 
@@ -27,15 +26,16 @@ function WriteDiary({ setShowWriteDiary }) {
         {/* Container for the icons */}
         <div className="IconButtonWrapper">
           {/* Icon for uploading pictures */}
-          <div className="IconButton" onClick={handleRefineContent}>
-            <FaImage style={{ fontSize: '40px', cursor: 'pointer', color: '#3498db' }} />
-            <ImageUploader/>
+          <div className="IconButton">
+            <ImageUploader setIsImageUploaded={setIsImageUploaded} credentials={credentials}/>
           </div>
 
-          {/* Icon for voice dictation */}
-          <div className="IconButton" onClick={handleRefineContent}>
-            <FaMicrophoneAlt style={{ fontSize: '40px', cursor: 'pointer', color: '#e74c3c' }} />
-          </div>
+          {/* Icon for voice dictation, hidden if an image is uploaded */}
+          {!isImageUploaded && (
+            <div className="IconButton" onClick={handleRefineContent}>
+              <FaMicrophoneAlt style={{ fontSize: '40px', cursor: 'pointer', color: '#e74c3c' }} />
+            </div>
+          )}
         </div>
         {refinedContent && <p><strong>Refined Content:</strong> {refinedContent}</p>}
       </div>

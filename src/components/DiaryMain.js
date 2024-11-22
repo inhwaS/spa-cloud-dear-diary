@@ -9,6 +9,8 @@ const DiaryMain = ({
   diaryInfo,
   diaryCreated,
   diaryConnected,
+  showReadDiary,
+  showWriteDiary,
   setDiaryInfo,
   setShowReadDiary,
   setShowWriteDiary,
@@ -16,8 +18,6 @@ const DiaryMain = ({
   setDiaryConnected,
   getDiaryInfo,
 }) => {
-  const [showReadDiary, setShowReadDiaryLocal] = useState(false);
-  const [showWriteDiary, setShowWriteDiaryLocal] = useState(false);
 
   useEffect(() => {
     if (diaryInfo.diaryId) {
@@ -42,6 +42,14 @@ const DiaryMain = ({
   }, [diaryCreated]);
 
   useEffect(() => {
+    console.log('showReadDiary state:', showReadDiary);
+    if (showReadDiary) {
+        console.log('ReadDiary component should render.');
+    }
+}, [showReadDiary]);
+
+
+  useEffect(() => {
     if (diaryConnected) {
       console.log('Diary has been successfully connected. getting diary info...');
       getDiaryInfo();
@@ -50,15 +58,14 @@ const DiaryMain = ({
 
   return (
     <div>
-      {/* Conditional Rendering of Components */}
       {!diaryCreated ? (
         <CreateDiary setDiaryCreated={setDiaryCreated} setDiaryConnected={setDiaryConnected} credentials={credentials} />
       ) : !diaryConnected ? (
-        <WaitingForConnection diaryInfo={diaryInfo} getDiaryInfo={getDiaryInfo}/>
+        <WaitingForConnection diaryInfo={diaryInfo} getDiaryInfo={getDiaryInfo} />
+      ) : showReadDiary ? ( // Ensure this is checked before showWriteDiary
+        <ReadDiary setShowReadDiary={setShowReadDiary} />
       ) : showWriteDiary ? (
-        <WriteDiary setShowWriteDiary={setShowWriteDiaryLocal} />
-      ) : showReadDiary ? (
-        <ReadDiary setShowReadDiary={setShowReadDiaryLocal} />
+        <WriteDiary setShowWriteDiary={setShowWriteDiary} credentials={credentials}/>
       ) : (
         <div className="DiaryMain">
           <div className="DiaryHeader">
@@ -67,17 +74,23 @@ const DiaryMain = ({
             <span>{diaryInfo?.name2 || 'User2'}</span>
           </div>
           <p>{diaryInfo?.date || 'Unknown date'} • {diaryInfo?.days || 0} days</p>
-          {/* Diary Main Content */}
-          <div className="DiaryIcon" onClick={() => setShowReadDiaryLocal(true)}>
+          <div className="DiaryIcon" onClick={() => {
+            console.log('Show read diary');
+              setShowWriteDiary(false); // Reset conflicting state
+              setShowReadDiary(true);
+          }}>
             <img src="./images/diary.png" alt="Diary" style={{ cursor: 'pointer' }} />
           </div>
-          <button className="BasicButton" onClick={() => setShowWriteDiaryLocal(true)}>
+          <button className="BasicButton" onClick={() => {
+              setShowReadDiary(false); // Reset conflicting state
+              setShowWriteDiary(true);
+          }}>
             New Entry
           </button>
         </div>
       )}
     </div>
-  );
+  );  
 };
 
 export default DiaryMain;
