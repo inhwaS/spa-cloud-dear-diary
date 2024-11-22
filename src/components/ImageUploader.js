@@ -3,13 +3,17 @@ import { FaImage } from 'react-icons/fa';
 import { uploadImage } from '../api/uploadImage';
 import { extractLabels } from '../api/extractLabels';
 import { chatCompletion } from '../api/chatCompletion';
+import { writeDiary } from '../api/writeDiary';
 
-const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo }) => {
+const s3_url = "";
+
+const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWriteDiary }) => {
   const [file, setFile] = useState(null);
-  const [filePreview, setFilePreview] = useState(null); // For displaying the image preview
+  const [filePreview, setFilePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isDiaryEntry, setDiaryEntry] = useState(false);
-  const [keywords, setKeywords] = useState(""); // Initialize with an empty string
+  const [keywords, setKeywords] = useState("");
+  
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -30,22 +34,27 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo }) => {
     if (file) {
       setLoading(true);
       const data = await uploadImage({ credentials, file, diaryInfo });
-      console.log(data.s3_url);
-      const keywords = await extractLabels(data.s3_url); // Get keywords from image
-
-      const diaryEntry = await chatCompletion(keywords); // Get diary entry based on keywords
+      s3_url = data.s3_url;
+      const keywords = await extractLabels(s3_url);
+      console.log(s3_url);
+      const diaryEntry = await chatCompletion(keywords);
       setLoading(false);
-      setDiaryEntry(true); // Set to true after diary entry is fetched
-      setKeywords(diaryEntry.reply); // Set the diary entry text to the textarea value
+      setDiaryEntry(true);
+      setKeywords(diaryEntry.reply);
     } else {
       alert('No file selected');
     }
   };
 
   const handleWrite = async () => {
-    // Handle writing the diary entry or saving it as needed
-    console.log("Writing the diary...");
-  };
+    setLoading(true);
+    console.log(s3_url);
+    const response = await writeDiary({ diaryInfo, s3_url, keywords });
+    if(response){
+      setLoading(false);
+      setShowWriteDiary(false);
+    }
+  };  
 
   return (
     <div className="image-uploader-container">

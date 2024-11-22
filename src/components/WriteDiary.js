@@ -14,7 +14,6 @@ function WriteDiary({ setShowWriteDiary, credentials, diaryInfo }) {
   };
 
   const handleOnClick = () => {
-    console.log("Go back to main diary view");
     setShowWriteDiary(false); // Update state to show the main diary view
   };
 
@@ -26,7 +25,11 @@ function WriteDiary({ setShowWriteDiary, credentials, diaryInfo }) {
         <div className="IconButtonWrapper">
           {/* Icon for uploading pictures */}
           <div className="IconButton">
-            <ImageUploader setIsImageUploaded={setIsImageUploaded} credentials={credentials} diaryInfo={diaryInfo}/>
+            <ImageUploader 
+              setIsImageUploaded={setIsImageUploaded}
+              credentials={credentials}
+              diaryInfo={diaryInfo}
+              setShowWriteDiary={setShowWriteDiary}/>
           </div>
 
           {/* Icon for voice dictation, hidden if an image is uploaded */}
