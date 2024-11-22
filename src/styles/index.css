@@ -190,11 +190,14 @@ html, body {
   display: flex;
   justify-content: space-evenly; /* Distribute the icons evenly */
   align-items: center; /* Vertically center the icons */
+  margin-top: 10px;
 }
 
 .IconButton {
   text-align: center;
   cursor: pointer;
+  border: transparent;
+  background-color: transparent;
 }
 
 h2 {
@@ -311,6 +314,21 @@ h2 {
   transition: color 0.3s;
 }
 
+.folder-icon {
+  cursor: pointer;
+  font-size: 40px;
+  color: #333;
+  display: inline-block;
+  transition: color 0.3s;
+}
+.microphone-icon {
+  cursor: pointer;
+  font-size: 40px;
+  color: #e83419;
+  display: inline-block;
+  transition: color 0.3s;
+}
+
 .upload-icon:hover {
   color: #2874a6;
 }
@@ -420,4 +438,32 @@ textarea::placeholder {
 .diary-image:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
+}
+
+
+
+.stop-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e83419;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.transcribe-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
 }

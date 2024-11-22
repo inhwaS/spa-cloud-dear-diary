@@ -1,45 +1,57 @@
 import React, { useState } from 'react';
+import { FaImage, FaMicrophoneAlt } from 'react-icons/fa';
 import ImageUploader from './ImageUploader';
-import { FaMicrophoneAlt } from 'react-icons/fa'; // Importing React Icons
+import LiveDictation from './LiveDictation';
 
 function WriteDiary({ setShowWriteDiary, credentials, diaryInfo }) {
-  const [content, setContent] = useState('');
-  const [refinedContent, setRefinedContent] = useState(null);
-  const [isImageUploaded, setIsImageUploaded] = useState(false); // New state to track image upload
-
-  const handleRefineContent = () => {
-    // Simulate LLM refinement process
-    setRefinedContent(`Refined: ${content}`);
-    setContent(false);
-  };
+  const [isImageUploaderVisible, setIsImageUploaderVisible] = useState(false);
+  const [isDictationVisible, setIsDictationVisible] = useState(false);
 
   const handleOnClick = () => {
-    setShowWriteDiary(false); // Update state to show the main diary view
+    setShowWriteDiary(false);
+  };
+
+  const handleShowImageUploader = () => {
+    setIsImageUploaderVisible(true);
+    setIsDictationVisible(false);
+  };
+
+  const handleShowDictation = () => {
+    setIsDictationVisible(true);
+    setIsImageUploaderVisible(false);
   };
 
   return (
     <div className="DiaryMain">
       <div>
-        <button className="BasicButton" onClick={handleOnClick}>Go Back</button>
-        {/* Container for the icons */}
+        <button className="BasicButton" onClick={handleOnClick}>
+          Go Back
+        </button>
         <div className="IconButtonWrapper">
-          {/* Icon for uploading pictures */}
-          <div className="IconButton">
-            <ImageUploader 
-              setIsImageUploaded={setIsImageUploaded}
-              credentials={credentials}
-              diaryInfo={diaryInfo}
-              setShowWriteDiary={setShowWriteDiary}/>
-          </div>
-
-          {/* Icon for voice dictation, hidden if an image is uploaded */}
-          {!isImageUploaded && (
-            <div className="IconButton" onClick={handleRefineContent}>
-              <FaMicrophoneAlt style={{ fontSize: '40px', cursor: 'pointer', color: '#e74c3c' }} />
-            </div>
-          )}
+          <button className="IconButton" onClick={handleShowImageUploader}>
+            <FaImage className="upload-icon" />
+          </button>
+          <button className="IconButton" onClick={handleShowDictation}>
+            <FaMicrophoneAlt className="microphone-icon" />
+          </button>
         </div>
-        {refinedContent && <p><strong>Refined Content:</strong> {refinedContent}</p>}
+
+        {/* Conditionally show ImageUploader or LiveDictation */}
+        {isImageUploaderVisible && (
+          <ImageUploader
+            setIsImageUploaded={setIsImageUploaderVisible}
+            credentials={credentials}
+            diaryInfo={diaryInfo}
+            setShowWriteDiary={setShowWriteDiary}
+          />
+        )}
+        {isDictationVisible && (
+          <LiveDictation 
+            diaryInfo={diaryInfo}
+            credentials={credentials}
+            setShowWriteDiary={setShowWriteDiary}
+          />
+        )}
       </div>
     </div>
   );

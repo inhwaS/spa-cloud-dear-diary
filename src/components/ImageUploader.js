@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaImage } from 'react-icons/fa';
+import { FaFolder } from 'react-icons/fa';
 import { uploadImage } from '../api/uploadImage';
 import { extractLabels } from '../api/extractLabels';
 import { chatCompletion } from '../api/chatCompletion';
@@ -49,7 +49,7 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
   const handleWrite = async () => {
     setLoading(true);
     console.log(s3_url);
-    const response = await writeDiary({ diaryInfo, s3_url, keywords });
+    const response = await writeDiary({ diaryInfo, credentials, s3_url, keywords });
     if(response){
       setLoading(false);
       setShowWriteDiary(false);
@@ -67,7 +67,7 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
         className="file-input"
       />
       {/* Label styled as upload button */}
-      <label htmlFor="fileInput" className="upload-icon">
+      <label htmlFor="fileInput" className="folder-icon">
         {filePreview ? (
             <img 
             src={filePreview} 
@@ -75,7 +75,7 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
             className="preview-image" 
             />
         ) : (
-            <FaImage />
+            <FaFolder />
         )}
       </label>
       {/* Upload button disabled until a file is selected */}

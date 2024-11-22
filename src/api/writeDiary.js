@@ -1,6 +1,6 @@
-export const writeDiary = async ({ diaryInfo, s3_url, keywords }) => {
+export const writeDiary = async ({ diaryInfo, credentials, s3_url, keywords }) => {
     const diaryId = diaryInfo.diaryId;
-    console.log("connect diary info for user:", diaryId, s3_url);
+    console.log("connect diary info for user:", diaryId, s3_url, keywords);
     const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/write-diary`;
     
     try {
@@ -14,6 +14,8 @@ export const writeDiary = async ({ diaryInfo, s3_url, keywords }) => {
           diaryId: diaryId,
           labels: keywords,
           s3_url: s3_url,
+          email: credentials.email,
+          name: credentials.name,
           }),
       });
   
