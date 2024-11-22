@@ -10,23 +10,13 @@ export default function Home() {
     name: '',
   });
 
-  useEffect(() => {
-    if (isRegistered) {
-    }
-  }, [isRegistered]);
-
-  useEffect(() => {
-    if (credentials) {
-    }
-  }, [credentials]);
-
   return (
     <div className="AppContainer">
       <main className="Wrapper">
         {!isRegistered ? (
           <Auth setIsRegistered={setIsRegistered} setCredentials={setCredentials}/>
         ) : (
-          <DiaryHome credentials={credentials}/>
+          <DiaryHome credentials={credentials} />
         )}
       </main>
     </div>

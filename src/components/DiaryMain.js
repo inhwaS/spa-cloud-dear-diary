@@ -19,6 +19,34 @@ const DiaryMain = ({
   const [showReadDiary, setShowReadDiaryLocal] = useState(false);
   const [showWriteDiary, setShowWriteDiaryLocal] = useState(false);
 
+  useEffect(() => {
+    if (diaryInfo.diaryId) {
+      setDiaryCreated(true);
+      if(diaryInfo.connected){
+          setDiaryConnected(true);
+      }else{
+          setDiaryConnected(false);
+      }
+    }
+    console.log('diaryCreated >> ', diaryCreated);
+    console.log('diaryConnected>> ', diaryConnected);
+
+  }, [diaryInfo]);
+
+
+  useEffect(() => {
+    if (diaryCreated) {
+      console.log('Diary has been successfully created. Fetching diary info...');
+      getDiaryInfo();
+    }
+  }, [diaryCreated]);
+
+  useEffect(() => {
+    if (diaryConnected) {
+      console.log('Diary has been successfully connected. getting diary info...');
+      getDiaryInfo();
+    }
+  }, [diaryConnected]);
 
   return (
     <div>

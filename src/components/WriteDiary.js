@@ -1,6 +1,7 @@
 // src/components/WriteDiary.js
 import React, { useState } from 'react';
 import { FaImage, FaMicrophoneAlt } from 'react-icons/fa'; // Importing React Icons
+import ImageUploader from './ImageUploader';
 
 function WriteDiary({ setShowWriteDiary }) {
   const [content, setContent] = useState('');
@@ -28,6 +29,7 @@ function WriteDiary({ setShowWriteDiary }) {
           {/* Icon for uploading pictures */}
           <div className="IconButton" onClick={handleRefineContent}>
             <FaImage style={{ fontSize: '40px', cursor: 'pointer', color: '#3498db' }} />
+            <ImageUploader/>
           </div>
 
           {/* Icon for voice dictation */}
