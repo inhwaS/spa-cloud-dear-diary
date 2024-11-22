@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ImageUploader from './ImageUploader';
 import { FaMicrophoneAlt } from 'react-icons/fa'; // Importing React Icons
 
-function WriteDiary({ setShowWriteDiary, credentials }) {
+function WriteDiary({ setShowWriteDiary, credentials, diaryInfo }) {
   const [content, setContent] = useState('');
   const [refinedContent, setRefinedContent] = useState(null);
   const [isImageUploaded, setIsImageUploaded] = useState(false); // New state to track image upload
@@ -22,12 +22,11 @@ function WriteDiary({ setShowWriteDiary, credentials }) {
     <div className="DiaryMain">
       <div>
         <button className="BasicButton" onClick={handleOnClick}>Go Back</button>
-        <h2>Write Diary</h2>
         {/* Container for the icons */}
         <div className="IconButtonWrapper">
           {/* Icon for uploading pictures */}
           <div className="IconButton">
-            <ImageUploader setIsImageUploaded={setIsImageUploaded} credentials={credentials}/>
+            <ImageUploader setIsImageUploaded={setIsImageUploaded} credentials={credentials} diaryInfo={diaryInfo}/>
           </div>
 
           {/* Icon for voice dictation, hidden if an image is uploaded */}

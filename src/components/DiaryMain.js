@@ -63,9 +63,9 @@ const DiaryMain = ({
       ) : !diaryConnected ? (
         <WaitingForConnection diaryInfo={diaryInfo} getDiaryInfo={getDiaryInfo} />
       ) : showReadDiary ? ( // Ensure this is checked before showWriteDiary
-        <ReadDiary setShowReadDiary={setShowReadDiary} />
+        <ReadDiary setShowReadDiary={setShowReadDiary} diaryInfo={diaryInfo}/>
       ) : showWriteDiary ? (
-        <WriteDiary setShowWriteDiary={setShowWriteDiary} credentials={credentials}/>
+        <WriteDiary setShowWriteDiary={setShowWriteDiary} credentials={credentials} diaryInfo={diaryInfo}/>
       ) : (
         <div className="DiaryMain">
           <div className="DiaryHeader">
