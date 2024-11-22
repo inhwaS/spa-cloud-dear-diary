@@ -381,3 +381,43 @@ textarea::placeholder {
   border-radius: 8px;    /* Optional: Rounded corners */
   border: 1px solid #ccc; /* Optional: Add a border for clarity */
 }
+
+
+.diary-entry {
+  background: #fff;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #4b0082; /* Highlight border */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.diary-entry h2 {
+  font-family: 'Cursive', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.diary-entry p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.image-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.diary-image {
+  max-width: 200px;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.diary-image:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}

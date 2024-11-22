@@ -42,9 +42,8 @@ const DiaryMain = ({
   }, [diaryCreated]);
 
   useEffect(() => {
-    console.log('showReadDiary state:', showReadDiary);
     if (showReadDiary) {
-        console.log('ReadDiary component should render.');
+        
     }
 }, [showReadDiary]);
 
