@@ -18,7 +18,6 @@ export const readDiary = async ({ diaryInfo }) => {
       return null;
       }
   
-      console.log('Diary wrote successfully!');
       return await response.json(); // Return the response if needed
     } catch (error) {
       console.error('Error during diary writting:', error);

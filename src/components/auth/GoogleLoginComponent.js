@@ -32,7 +32,6 @@ const OAuthCallback = ({ setIsRegistered, setLoading, setCredentials }) => {
       })
       .then(data => {
         setIsRegistered(true)
-        console.log(data);
         setCredentials({ email: data.email, name: data.name });
       })
       .catch(error => {

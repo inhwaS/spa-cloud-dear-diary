@@ -1,5 +1,4 @@
 export const connectDiary = async ({ diaryId, credentials }) => {
-    console.log("connect diary info for user:", credentials, diaryId);
     const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/connect-diary`;
     
     try {

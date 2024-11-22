@@ -48,8 +48,6 @@ function Login({ setIsRegistered, setCredentials }) {
           // Extract custom:username from attributes
           const customUsernameAttr = attributes.find(attr => attr.Name === "custom:username");
           const customUsername = customUsernameAttr ? customUsernameAttr.Value : null;
-
-          console.log("Custom Username:", customUsername);
           setCredentials({ email, name: customUsername });
         });
       },

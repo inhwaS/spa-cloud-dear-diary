@@ -1,5 +1,4 @@
 export const uploadImage = async ({credentials, file, diaryInfo }) => {
-  console.log("Uploading image for user:", credentials.email);
   const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/upload-image`;
 
   // Create a FormData object

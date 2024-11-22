@@ -28,8 +28,6 @@ const DiaryMain = ({
           setDiaryConnected(false);
       }
     }
-    console.log('diaryCreated >> ', diaryCreated);
-    console.log('diaryConnected>> ', diaryConnected);
 
   }, [diaryInfo]);
 
@@ -74,7 +72,6 @@ const DiaryMain = ({
           </div>
           <p>{diaryInfo?.date || 'Unknown date'} • {diaryInfo?.days || 0} days</p>
           <div className="DiaryIcon" onClick={() => {
-            console.log('Show read diary');
               setShowWriteDiary(false); // Reset conflicting state
               setShowReadDiary(true);
           }}>

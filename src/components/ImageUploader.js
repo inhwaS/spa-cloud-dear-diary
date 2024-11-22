@@ -36,7 +36,6 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
       const data = await uploadImage({ credentials, file, diaryInfo });
       s3_url = data.s3_url;
       const keywords = await extractLabels(s3_url);
-      console.log(s3_url);
       const diaryEntry = await chatCompletion(keywords);
       setLoading(false);
       setDiaryEntry(true);
@@ -48,7 +47,6 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
 
   const handleWrite = async () => {
     setLoading(true);
-    console.log(s3_url);
     const response = await writeDiary({ diaryInfo, credentials, s3_url, keywords });
     if(response){
       setLoading(false);

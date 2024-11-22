@@ -1,5 +1,4 @@
 export const chatCompletion = async (keywords) => {
-    console.log("creating chat for: ", keywords);
     const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/chat-completion`;
   
     try {
