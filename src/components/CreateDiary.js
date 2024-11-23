@@ -3,12 +3,11 @@ import { createDiary } from '../api/createDiary';
 import { connectDiary } from '../api/connectDiary';
 
 function Diary({ setDiaryCreated, credentials, setDiaryConnected}) {
-  const [selectedAccordion, setSelectedAccordion] = useState(""); // To track which accordion is selected
+  const [selectedAccordion, setSelectedAccordion] = useState("");
   const [date, setDate] = useState('');
   const [loading, setLoading] = useState(false);
   const [diaryId, setDiaryId] = useState("");
 
-  // Function to generate a random diary ID
   function generateRandomString() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -19,7 +18,6 @@ function Diary({ setDiaryCreated, credentials, setDiaryConnected}) {
     return result;
   }
 
-  // Handle the diary creation form submission
   const handleDiaryCreation = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -28,14 +26,12 @@ function Diary({ setDiaryCreated, credentials, setDiaryConnected}) {
     setDiaryCreated(true);
   };
 
-  // Handle Connect Diary button click
   const handleConnectDiary = async (e) => {
     setLoading(true);
     e.preventDefault();
     await connectDiary({diaryId, credentials});
     setDiaryConnected(true);
   };
-
 
   return (
     <div className="DiaryMain">

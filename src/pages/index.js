@@ -1,4 +1,3 @@
-// pages/index.js
 import React, { useState } from 'react';
 import Auth from '../components/auth/Auth';
 import DiaryHome from '../components/DiaryHome';

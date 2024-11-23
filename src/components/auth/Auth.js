@@ -6,7 +6,7 @@ function Auth({ setIsRegistered, setCredentials }) {
   const [isLoginPage, setIsLoginPage] = useState(true);
 
   const handleTogglePage = () => {
-    setIsLoginPage(!isLoginPage);  // Toggle between Login and SignUp
+    setIsLoginPage(!isLoginPage);
   };
 
   return (

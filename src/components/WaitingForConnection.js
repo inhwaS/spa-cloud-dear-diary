@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { FaSync } from 'react-icons/fa'; // Importing the refresh icon from react-icons
-
+import { FaSync } from 'react-icons/fa';
 
 function WaitingForConnection({ diaryInfo, getDiaryInfo }) {
 

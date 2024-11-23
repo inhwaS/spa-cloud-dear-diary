@@ -18,7 +18,7 @@ const LiveDictation = ({ diaryInfo, credentials, setShowWriteDiary }) => {
     recognition.lang = 'en-US';
 
     recognition.onstart = () => {
-      setIsListening(true); // Set listening state to true
+      setIsListening(true);
     };
 
     recognition.onresult = (event) => {
@@ -26,7 +26,7 @@ const LiveDictation = ({ diaryInfo, credentials, setShowWriteDiary }) => {
       for (let i = 0; i < event.results.length; ++i) {
         transcript += event.results[i][0].transcript;
       }
-      setKeywords(transcript.trim()); // Update transcribed text
+      setKeywords(transcript.trim());
     };
 
     recognition.onerror = (event) => {
@@ -34,14 +34,14 @@ const LiveDictation = ({ diaryInfo, credentials, setShowWriteDiary }) => {
     };
 
     recognition.onend = () => {
-      setIsListening(false); // End of dictation, set listening state to false
+      setIsListening(false);
     };
 
-    recognition.start(); // Start the speech recognition
+    recognition.start();
   };
 
   const handleStopDictation = () => {
-    setIsListening(false); // Stop the recognition manually
+    setIsListening(false);
   };
 
   const handleWrite = async () => {
@@ -79,7 +79,7 @@ const LiveDictation = ({ diaryInfo, credentials, setShowWriteDiary }) => {
       <textarea
         className="DiaryContentTextarea"
         value={keywords}
-        onChange={(e) => setKeywords(e.target.value)} // Allow manual editing
+        onChange={(e) => setKeywords(e.target.value)}
         placeholder="Start speaking or type here..."
       />
       {/* Write Button, only visible when transcription has stopped */}
@@ -87,7 +87,7 @@ const LiveDictation = ({ diaryInfo, credentials, setShowWriteDiary }) => {
           <button
             onClick={handleWrite}
             className="upload-button"
-            disabled={loading} // Disabled while writing
+            disabled={loading}
             >
               {loading ? "Writing diary..." : "Write"}
           </button>

@@ -13,13 +13,12 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
   const [isDiaryEntry, setDiaryEntry] = useState(false);
   const [keywords, setKeywords] = useState("");
   
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.startsWith('image/')) {
       if (selectedFile.size <= 5 * 1024 * 1024) { // 5 MB limit
         setFile(selectedFile);
-        setFilePreview(URL.createObjectURL(selectedFile)); // Generate preview URL
+        setFilePreview(URL.createObjectURL(selectedFile));
         setIsImageUploaded(true);
       } else {
         alert('File size must be less than 5MB');
@@ -80,7 +79,7 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
         <button 
           onClick={handleUpload} 
           className="upload-button" 
-          disabled={!file} // Disabled if no file is selected
+          disabled={!file}
         >
           {loading ? "Uploading image..." : "Upload"}
         </button>
@@ -88,15 +87,15 @@ const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWrit
         <div>
           {/* Display the diary entry in a textarea */}
           <textarea
-            value={keywords} // Set the value to `keywords`
-            onChange={(e) => setKeywords(e.target.value)} // Optional: Allow editing of the diary entry
-            rows="6" // Adjust rows for better UI
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+            rows="6"
             className="diary-textarea"
           />
           <button 
             onClick={handleWrite} 
             className="upload-button"
-            disabled={loading} // Disabled while writing
+            disabled={loading}
           >
             {loading ? "Writing diary..." : "Write"}
           </button>

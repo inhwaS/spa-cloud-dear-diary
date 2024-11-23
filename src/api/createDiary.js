@@ -1,7 +1,6 @@
 export const createDiary = async ({ diaryId, date, credentials }) => {
-  console.log("createDiary diary info for user:", credentials, diaryId, date);
   const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/create-diary`;
-  
+
   try {
     const response = await fetch(fetchUrl, {
       method: 'POST',
@@ -19,15 +18,13 @@ export const createDiary = async ({ diaryId, date, credentials }) => {
     });
 
     if (!response.ok) {
-    console.error('Failed to create diary:', response.status);
-    return null;
+      return null;
     }
 
-    console.log('Diary created successfully!');
-    return await response.json(); // Return the response if needed
+    return await response.json();
   } catch (error) {
     console.error('Error during diary creation:', error);
-    return null; // Handle errors gracefully
+    return null;
   }
 };
   

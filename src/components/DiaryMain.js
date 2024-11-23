@@ -49,7 +49,7 @@ const DiaryMain = ({
         <CreateDiary setDiaryCreated={setDiaryCreated} setDiaryConnected={setDiaryConnected} credentials={credentials} />
       ) : !diaryConnected ? (
         <WaitingForConnection diaryInfo={diaryInfo} getDiaryInfo={getDiaryInfo} />
-      ) : showReadDiary ? ( // Ensure this is checked before showWriteDiary
+      ) : showReadDiary ? (
         <ReadDiary setShowReadDiary={setShowReadDiary} diaryInfo={diaryInfo}/>
       ) : showWriteDiary ? (
         <WriteDiary setShowWriteDiary={setShowWriteDiary} credentials={credentials} diaryInfo={diaryInfo}/>
@@ -62,13 +62,13 @@ const DiaryMain = ({
           </div>
           <p>{diaryInfo?.date || 'Unknown date'} • {diaryInfo?.days || 0} days</p>
           <div className="DiaryIcon" onClick={() => {
-              setShowWriteDiary(false); // Reset conflicting state
+              setShowWriteDiary(false);
               setShowReadDiary(true);
           }}>
             <img src="./images/diary.png" alt="Diary" style={{ cursor: 'pointer' }} />
           </div>
           <button className="BasicButton" onClick={() => {
-              setShowReadDiary(false); // Reset conflicting state
+              setShowReadDiary(false);
               setShowWriteDiary(true);
           }}>
             New Entry

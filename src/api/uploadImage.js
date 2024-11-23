@@ -1,18 +1,17 @@
 export const uploadImage = async ({credentials, file, diaryInfo }) => {
   const fetchUrl = `${process.env.NEXT_PUBLIC_LAMBDA_URL}/upload-image`;
 
-  // Create a FormData object
   const formData = new FormData();
-  formData.append('file', file); // Add the image file
-  formData.append('userId', credentials.email); // Add metadata
-  formData.append('diaryId', diaryInfo.diaryId); // Add diaryId if applicable
-  formData.append('name', credentials.name); // Add name if applicable
+  formData.append('file', file);
+  formData.append('userId', credentials.email);
+  formData.append('diaryId', diaryInfo.diaryId);
+  formData.append('name', credentials.name);
 
   try {
     const response = await fetch(fetchUrl, {
       method: 'POST',
       mode: 'cors',
-      body: formData, // Use FormData for the request body
+      body: formData,
     });
 
     if (!response.ok) {

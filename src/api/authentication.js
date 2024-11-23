@@ -9,6 +9,7 @@ export const signUp = async (email, password) => {
       email,
       password,
     });
+    
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);
