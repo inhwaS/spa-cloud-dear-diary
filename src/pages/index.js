@@ -1,5 +1,5 @@
 // pages/index.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Auth from '../components/auth/Auth';
 import DiaryHome from '../components/DiaryHome';
 
@@ -9,7 +9,7 @@ export default function Home() {
     email: '',
     name: '',
   });
-
+  
   return (
     <div className="AppContainer">
       <main className="Wrapper">

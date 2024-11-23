@@ -12,8 +12,8 @@ function ReadDiary({ setShowReadDiary, diaryInfo }) {
         setLoading(true);
         const response = await readDiary({ diaryInfo });
         setDiaryContent(response); // Assuming response.data contains the array of diary entries
-      } catch (err) {
-        setError('Failed to load diary content.'); // Handle any errors
+      } catch (error) {
+        setError('Failed to load diary content. ', error); // Handle any errors
       } finally {
         setLoading(false); // Stop loading
       }

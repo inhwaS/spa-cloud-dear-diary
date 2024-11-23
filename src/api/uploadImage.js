@@ -19,7 +19,7 @@ export const uploadImage = async ({credentials, file, diaryInfo }) => {
       console.error("Failed to upload image:", response.statusText);
       return null;
     }
-
+    
     const data = await response.json();
     console.log("Image upload successful:", data);
     return data;

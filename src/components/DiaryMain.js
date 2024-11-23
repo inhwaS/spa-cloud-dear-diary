@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import CreateDiary from '../components/CreateDiary';
 import WaitingForConnection from '../components/WaitingForConnection';
 import WriteDiary from '../components/WriteDiary';
@@ -11,14 +11,12 @@ const DiaryMain = ({
   diaryConnected,
   showReadDiary,
   showWriteDiary,
-  setDiaryInfo,
   setShowReadDiary,
   setShowWriteDiary,
   setDiaryCreated,
   setDiaryConnected,
   getDiaryInfo,
 }) => {
-
   useEffect(() => {
     if (diaryInfo.diaryId) {
       setDiaryCreated(true);
@@ -31,20 +29,12 @@ const DiaryMain = ({
 
   }, [diaryInfo]);
 
-
   useEffect(() => {
     if (diaryCreated) {
       console.log('Diary has been successfully created. Fetching diary info...');
       getDiaryInfo();
     }
   }, [diaryCreated]);
-
-  useEffect(() => {
-    if (showReadDiary) {
-        
-    }
-}, [showReadDiary]);
-
 
   useEffect(() => {
     if (diaryConnected) {

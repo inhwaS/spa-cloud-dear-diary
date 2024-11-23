@@ -37,7 +37,7 @@ function SignUp({ setIsRegistered }) {
     };
   
     setLoading(true);
-    userPool.signUp(email, password, signUpData.Attributes, null, (err, result) => {
+    userPool.signUp(email, password, signUpData.Attributes, null, (err) => {
       setLoading(false);
       if (err) {
         setErrorMessage(err.message || JSON.stringify(err));

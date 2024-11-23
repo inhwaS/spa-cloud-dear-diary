@@ -22,7 +22,7 @@ function Verification({ email, loading, setLoading, setIsCodeVerified, setIsRegi
 
     const cognitoUser = new CognitoUser(userData);
     
-    cognitoUser.confirmRegistration(validationCode, true, (err, result) => {
+    cognitoUser.confirmRegistration(validationCode, true, (err) => {
       setLoading(false);
 
       if (err) {

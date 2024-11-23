@@ -33,7 +33,7 @@ function Login({ setIsRegistered, setCredentials }) {
 
     // Authenticate the user
     cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (result) => {
+      onSuccess: () => {
         setLoading(false);
         setIsRegistered(true);
 

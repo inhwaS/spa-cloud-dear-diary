@@ -5,8 +5,7 @@ import { extractLabels } from '../api/extractLabels';
 import { chatCompletion } from '../api/chatCompletion';
 import { writeDiary } from '../api/writeDiary';
 
-const s3_url = "";
-
+let s3_url = "";
 const ImageUploader = ({ setIsImageUploaded, credentials, diaryInfo, setShowWriteDiary }) => {
   const [file, setFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);

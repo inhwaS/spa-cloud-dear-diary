@@ -6,7 +6,7 @@ function WaitingForConnection({ diaryInfo, getDiaryInfo }) {
 
   useEffect(() => {
     if (diaryInfo) {
-      
+      console.log("diary Info has been changed!");
     }
   }, [diaryInfo]);
 

@@ -24,7 +24,7 @@ function Diary({ setDiaryCreated, credentials, setDiaryConnected}) {
     setLoading(true);
     e.preventDefault();
     const diaryId = generateRandomString();
-    const response = await createDiary({diaryId, date, credentials});
+    await createDiary({diaryId, date, credentials});
     setDiaryCreated(true);
   };
 
@@ -32,7 +32,7 @@ function Diary({ setDiaryCreated, credentials, setDiaryConnected}) {
   const handleConnectDiary = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const response = await connectDiary({diaryId, credentials});
+    await connectDiary({diaryId, credentials});
     setDiaryConnected(true);
   };
 
